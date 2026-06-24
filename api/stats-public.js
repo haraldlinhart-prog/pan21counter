@@ -10,12 +10,19 @@ export default async function handler(req, res) {
   const { id } = req.query;
   if (!id) return res.status(400).json({ error: 'Missing id' });
 
+  // Eigene Stats
   const { data, error } = await supabase.rpc('get_site_stats', { p_site_id: id });
   if (error) return res.status(500).json({ error: error.message });
-
   const stats = data?.[0] || { total_views: 0, total_unique: 0 };
 
-  // Letzte 30 Tage für Grafik
+  // Site-Info (Name + URL)
+  const { data: siteInfo } = await supabase
+    .from('pc_sites')
+    .select('sitename, url')
+    .eq('site_id', id)
+    .single();
+
+  // Letzte 30 Tage
   const { data: daily } = await supabase
     .from('pc_hits')
     .select('date, is_unique')
@@ -23,7 +30,6 @@ export default async function handler(req, res) {
     .gte('date', new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10))
     .order('date', { ascending: true });
 
-  // Aggregieren
   const byDay = {};
   (daily || []).forEach(row => {
     if (!byDay[row.date]) byDay[row.date] = { views: 0, unique: 0 };
@@ -31,10 +37,26 @@ export default async function handler(req, res) {
     if (row.is_unique) byDay[row.date].unique++;
   });
 
+  // Rang ermitteln: alle Hits aggregieren
+  const { data: allHits } = await supabase
+    .from('pc_hits')
+    .select('site_id');
+
+  let rank = 0;
+  if (allHits) {
+    const counts = {};
+    allHits.forEach(r => { counts[r.site_id] = (counts[r.site_id] || 0) + 1; });
+    const myViews = stats.total_views;
+    rank = Object.values(counts).filter(v => v > myViews).length + 1;
+  }
+
   res.setHeader('Cache-Control', 'public, max-age=60');
   res.status(200).json({
-    total_views: stats.total_views,
+    total_views:  stats.total_views,
     total_unique: stats.total_unique,
+    sitename: siteInfo?.sitename || null,
+    url:      siteInfo?.url || null,
+    rank,
     daily: byDay,
   });
 }

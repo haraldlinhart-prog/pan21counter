@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statistik — PAN21 Counter</title>
+  <meta name="robots" content="noindex">
+  <style>
+    :root {
+      --navy:#0d1f3c; --gold:#b8860b; --gold-lt:#d4a017;
+      --white:#fff; --mist:#e8ecf2; --slate:#6b7ca0; --bg:#f5f7fa;
+      --radius:6px; --ff-d:'Georgia',serif; --ff-b:'Arial',sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--ff-b);color:var(--navy);background:var(--bg);min-height:100vh}
+    nav{background:var(--navy);padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--gold)}
+    .nav-logo{color:#fff;font-family:var(--ff-d);font-size:1.2rem;font-weight:700;text-decoration:none}
+    .nav-logo span{color:var(--gold-lt)}
+    .back-link{color:rgba(255,255,255,.7);font-size:.85rem;text-decoration:none}
+    .back-link:hover{color:var(--gold-lt)}
+    main{max-width:760px;margin:2.5rem auto;padding:0 1.5rem}
+    .card{background:var(--white);border:1px solid var(--mist);border-radius:var(--radius);padding:1.75rem;margin-bottom:1.5rem}
+    .site-name{font-family:var(--ff-d);font-size:1.5rem;font-weight:700;margin-bottom:.25rem}
+    .site-url{font-size:.85rem;color:var(--slate)}
+    .stats-row{display:flex;gap:2rem;margin-top:1.5rem;flex-wrap:wrap}
+    .stat-box{flex:1;min-width:140px;background:var(--bg);border:1px solid var(--mist);border-radius:var(--radius);padding:1.1rem 1.25rem;text-align:center}
+    .stat-val{font-family:var(--ff-d);font-size:2.2rem;font-weight:700;color:var(--navy);line-height:1}
+    .stat-lbl{font-size:.75rem;color:var(--slate);text-transform:uppercase;letter-spacing:.08em;margin-top:.4rem}
+    .chart-title{font-size:.8rem;font-weight:600;color:var(--navy);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.08em}
+    .chart-wrap{display:flex;align-items:flex-end;gap:3px;height:80px;padding-bottom:2px}
+    .b-views{background:var(--navy);border-radius:2px 2px 0 0;flex:1;transition:.15s;cursor:pointer;position:relative}
+    .b-views:hover::after{content:attr(data-tip);position:absolute;bottom:105%;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:3px 7px;border-radius:3px;font-size:10px;white-space:nowrap;pointer-events:none}
+    .b-unique{background:var(--gold);border-radius:2px 2px 0 0;flex:1;transition:.15s;cursor:pointer;position:relative}
+    .b-unique:hover::after{content:attr(data-tip);position:absolute;bottom:105%;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;padding:3px 7px;border-radius:3px;font-size:10px;white-space:nowrap;pointer-events:none}
+    .chart-labels{display:flex;gap:3px;margin-top:.4rem}
+    .c-lbl{flex:2;font-size:9px;color:var(--slate);text-align:center;overflow:hidden}
+    .legend{display:flex;gap:1.2rem;margin-bottom:.75rem;font-size:.78rem}
+    .leg-dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:.3rem}
+    .powered{text-align:center;font-size:.78rem;color:var(--slate);margin-top:2rem;padding-bottom:2rem}
+    .powered a{color:var(--gold);text-decoration:none}
+    .loading{color:var(--slate);font-size:.9rem;padding:2rem 0}
+    .error-msg{color:#8b1a1a;background:#fdecea;padding:1rem;border-radius:var(--radius)}
+    .badge-preview{margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--mist)}
+    .badge-preview h4{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--slate);margin-bottom:.75rem}
+    .b-classic{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;background:#f5f7fa;color:#1a1a2e;border:1px solid #d0d7de;border-radius:4px;font-family:Arial,sans-serif;font-size:12px;text-decoration:none;margin:.3rem}
+    .b-dark{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;background:#1a1a2e;color:#fff;border:1px solid #333;border-radius:4px;font-family:Arial,sans-serif;font-size:12px;text-decoration:none;margin:.3rem}
+    .b-minimal{display:inline-flex;align-items:center;gap:8px;padding:5px 0;color:#555;font-family:Arial,sans-serif;font-size:12px;text-decoration:none;margin:.3rem}
+    @media(max-width:500px){.stats-row{gap:1rem}.stat-val{font-size:1.6rem}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">PAN21 <span>Counter</span></a>
+  <a href="/" class="back-link">← Startseite</a>
+</nav>
+
+<main>
+  <div class="card" id="mainCard">
+    <div class="loading" id="loadingEl">Statistik wird geladen …</div>
+    <div id="content" style="display:none">
+      <div class="site-name" id="siteName"></div>
+      <div class="site-url" id="siteUrl"></div>
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-val" id="totalViews">—</div>
+          <div class="stat-lbl">Pageviews gesamt</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="totalUnique">—</div>
+          <div class="stat-lbl">Unique Visitors gesamt</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="chartCard" style="display:none">
+    <div class="legend">
+      <span><span class="leg-dot" style="background:var(--navy)"></span>Pageviews</span>
+      <span><span class="leg-dot" style="background:var(--gold)"></span>Unique Visitors</span>
+    </div>
+    <div class="chart-title">Letzte 30 Tage</div>
+    <div class="chart-wrap" id="chartEl"></div>
+    <div class="chart-labels" id="chartLabels"></div>
+  </div>
+
+  <div class="card" id="badgeCard" style="display:none">
+    <div class="badge-preview">
+      <h4>Badge-Stile</h4>
+      <div id="badgeClassic" class="b-classic"></div>
+      <div id="badgeDark" class="b-dark"></div>
+      <div id="badgeMinimal" class="b-minimal"></div>
+    </div>
+  </div>
+
+  <div class="powered">
+    Powered by <a href="/">PAN21 Counter</a> — Kostenloser Besucherzähler
+  </div>
+</main>
+
+<script>
+(async function() {
+  // Site-ID aus URL holen
+  const pathParts = window.location.pathname.split('/');
+  const siteId = pathParts[pathParts.length - 1] || pathParts[pathParts.length - 2];
+
+  if (!siteId) {
+    document.getElementById('loadingEl').innerHTML = '<div class="error-msg">Keine Zähler-ID angegeben.</div>';
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/stats-public?id=' + siteId);
+    if (!res.ok) throw new Error('Nicht gefunden');
+    const data = await res.json();
+
+    // Header ausblenden
+    document.getElementById('loadingEl').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+    document.getElementById('chartCard').style.display = 'block';
+    document.getElementById('badgeCard').style.display = 'block';
+
+    // Zahlen
+    document.getElementById('totalViews').textContent = (data.total_views || 0).toLocaleString('de-DE');
+    document.getElementById('totalUnique').textContent = (data.total_unique || 0).toLocaleString('de-DE');
+
+    // Site-Name (aus Daten oder Fallback)
+    document.getElementById('siteName').textContent = data.sitename || siteId;
+    document.getElementById('siteUrl').textContent = data.url || '';
+    document.title = (data.sitename || siteId) + ' — Statistik · PAN21 Counter';
+
+    // Chart
+    const daily = data.daily || {};
+    const days = [];
+    for (let i = 29; i >= 0; i--) {
+      const d = new Date(Date.now() - i * 86400000);
+      const key = d.toISOString().slice(0, 10);
+      days.push({ key, label: d.getDate() + '.' + (d.getMonth() + 1) + '.', data: daily[key] || { views: 0, unique: 0 } });
+    }
+
+    const maxVal = Math.max(...days.map(d => d.data.views), 1);
+    const chartEl = document.getElementById('chartEl');
+    const labelsEl = document.getElementById('chartLabels');
+
+    days.forEach((day, i) => {
+      const views = day.data.views;
+      const unique = day.data.unique;
+      const hV = Math.max(2, Math.round((views / maxVal) * 76));
+      const hU = Math.max(unique > 0 ? 2 : 0, Math.round((unique / maxVal) * 76));
+
+      const bv = document.createElement('div');
+      bv.className = 'b-views';
+      bv.style.height = hV + 'px';
+      bv.setAttribute('data-tip', day.label + ' ' + views + ' PV');
+
+      const bu = document.createElement('div');
+      bu.className = 'b-unique';
+      bu.style.height = hU + 'px';
+      bu.setAttribute('data-tip', day.label + ' ' + unique + ' UV');
+
+      chartEl.appendChild(bv);
+      chartEl.appendChild(bu);
+
+      if (i % 5 === 0 || i === 29) {
+        const lbl = document.createElement('div');
+        lbl.className = 'c-lbl';
+        lbl.style.flex = i === 29 ? '2' : '10';
+        lbl.textContent = day.label;
+        labelsEl.appendChild(lbl);
+      }
+    });
+
+    // Badges
+    const views = (data.total_views || 0).toLocaleString('de-DE');
+    const unique = (data.total_unique || 0).toLocaleString('de-DE');
+    const svgBars = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>';
+    const svgUser = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>';
+    const inner = svgBars + '<span>' + views + '</span><span style="opacity:.4">|</span>' + svgUser + '<span>' + unique + '</span>';
+
+    document.getElementById('badgeClassic').innerHTML = inner;
+    document.getElementById('badgeDark').innerHTML = inner;
+    document.getElementById('badgeMinimal').innerHTML = inner;
+
+  } catch (e) {
+    document.getElementById('loadingEl').innerHTML = '<div class="error-msg">Statistik nicht gefunden. Bitte prüfen Sie die Zähler-ID.</div>';
+  }
+})();
+</script>
+
+</body>
+</html>

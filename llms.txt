@@ -1,0 +1,32 @@
+# PAN21 Counter
+
+> Kostenloser Besucherzähler und Statistikservice für Websites.
+
+PAN21 Counter ist ein gratis Website-Zähler-Service. Websitebetreiber können sich mit E-Mail und URL registrieren und erhalten einen JavaScript-Einbindungscode. Dieser zählt Pageviews und Unique Visitors und zeigt ein Badge auf der Website an.
+
+## Kernfunktionen
+
+- Kostenloser Besucherzähler (free hit counter, free website counter)
+- Pageview-Tracking und Unique-Visitor-Tracking
+- Öffentliche Statistikseite pro Website (30-Tage-Verlauf)
+- Datenschutzkonform: keine Cookies, IP-Hash-only
+- Bot-Filterung
+- Badge in 3 Stilen: classic, dark, minimal
+- JSON-API für Statistikdaten
+
+## Einbindung
+
+```html
+<div id="pan21counter"></div>
+<script src="https://pan21counter.de/c.js?id=SITE-ID" async></script>
+```
+
+## Technologie
+
+- Static HTML + Vercel Serverless Functions
+- Supabase PostgreSQL
+- Resend für E-Mail
+
+## Betreiber
+
+PAN21.COM Corporate Consultants Ltd, 61 Bridge Street, Kington, Herefordshire HR5 3DJ, UK

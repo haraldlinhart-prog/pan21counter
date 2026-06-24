@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /stats/
+
+Sitemap: https://pan21counter.de/sitemap.xml

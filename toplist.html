@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top 10 Websites — PAN21 Counter</title>
+  <meta name="description" content="Die meistbesuchten Websites im PAN21 Counter Netzwerk. Top 10 und Top 100 nach Pageviews.">
+  <meta name="robots" content="index, follow">
+  <style>
+    :root {
+      --navy:#0d1f3c; --navy2:#1a2f50; --gold:#b8860b; --gold-lt:#d4a017;
+      --white:#fff; --mist:#e8ecf2; --slate:#6b7ca0; --bg:#f5f7fa; --ink:#1a1a2e;
+      --radius:6px; --ff-d:'Georgia',serif; --ff-b:'Arial',sans-serif; --trans:.2s ease;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--ff-b);color:var(--ink);background:var(--white);line-height:1.6}
+
+    nav{background:var(--navy);padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:100}
+    .nav-logo{color:var(--white);font-family:var(--ff-d);font-size:1.3rem;font-weight:700;text-decoration:none}
+    .nav-logo span{color:var(--gold-lt)}
+    .nav-links{display:flex;gap:1.5rem}
+    .nav-links a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.88rem;transition:color var(--trans)}
+    .nav-links a:hover{color:var(--gold-lt)}
+
+    /* HERO */
+    .hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);color:var(--white);padding:3.5rem 2rem 3rem;text-align:center}
+    .hero-eyebrow{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:.8rem}
+    .hero h1{font-family:var(--ff-d);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;margin-bottom:.8rem}
+    .hero h1 em{color:var(--gold-lt);font-style:normal}
+    .hero p{font-size:1rem;opacity:.8;max-width:520px;margin:0 auto 2rem;line-height:1.7}
+
+    /* BADGE */
+    .badge-wrap{display:inline-block;margin-bottom:.5rem}
+    .badge-svg{width:320px;height:80px;max-width:90vw}
+    .badge-label{font-size:.75rem;color:rgba(255,255,255,.5);margin-top:.4rem}
+
+    /* TABS */
+    .tabs-wrap{max-width:860px;margin:0 auto;padding:2.5rem 1.5rem}
+    .tabs{display:flex;gap:.5rem;margin-bottom:2rem;border-bottom:2px solid var(--mist)}
+    .tab-btn{background:none;border:none;padding:.7rem 1.4rem;font-family:var(--ff-b);font-size:.95rem;font-weight:700;color:var(--slate);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all var(--trans)}
+    .tab-btn.active{color:var(--navy);border-bottom-color:var(--gold)}
+    .tab-btn:hover:not(.active){color:var(--navy)}
+
+    /* TABLE */
+    .rank-table{width:100%;border-collapse:collapse}
+    .rank-table thead th{text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--slate);padding:.6rem .8rem;border-bottom:2px solid var(--mist)}
+    .rank-table tbody tr{border-bottom:1px solid var(--mist);transition:background var(--trans)}
+    .rank-table tbody tr:hover{background:var(--bg)}
+    .rank-table td{padding:.75rem .8rem;vertical-align:middle}
+
+    .rank-num{font-family:var(--ff-d);font-size:1.3rem;font-weight:700;color:var(--slate);width:48px;text-align:center}
+    .rank-num.gold{color:var(--gold)}
+    .rank-num.silver{color:#888}
+    .rank-num.bronze{color:#a0522d}
+
+    .site-name{font-weight:700;font-size:.95rem;color:var(--navy)}
+    .site-url{font-size:.8rem;color:var(--slate);margin-top:.15rem}
+    .site-url a{color:var(--slate);text-decoration:none}
+    .site-url a:hover{color:var(--gold)}
+
+    .views-cell{text-align:right;font-family:var(--ff-d);font-size:1.1rem;font-weight:700;color:var(--navy)}
+    .views-bar-wrap{width:120px;padding-left:1rem}
+    .views-bar-bg{background:var(--mist);border-radius:2px;height:6px;overflow:hidden}
+    .views-bar-fill{background:var(--navy);height:6px;border-radius:2px;transition:width .5s ease}
+
+    /* Badge-Inline in Tabelle */
+    .rank-badge{display:inline-block}
+    .rank-badge img{height:32px;width:auto;vertical-align:middle}
+
+    /* Embed-Code Box */
+    .embed-section{background:var(--bg);border:1px solid var(--mist);border-radius:var(--radius);padding:1.5rem;margin-top:2.5rem}
+    .embed-section h3{font-family:var(--ff-d);font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.75rem}
+    .code-box{background:var(--navy);color:#a8d8ea;padding:1rem 1.25rem;border-radius:var(--radius);font-family:'Courier New',monospace;font-size:.82rem;overflow-x:auto;position:relative}
+    .copy-btn{position:absolute;top:.6rem;right:.6rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:.25rem .6rem;border-radius:3px;font-size:.72rem;cursor:pointer}
+    .copy-btn:hover{background:rgba(255,255,255,.2)}
+
+    .loading{text-align:center;padding:3rem;color:var(--slate);font-size:.9rem}
+    .empty{text-align:center;padding:3rem;color:var(--slate)}
+
+    footer{background:var(--navy);color:rgba(255,255,255,.6);padding:2rem;text-align:center;font-size:.82rem;margin-top:3rem}
+    footer a{color:var(--gold-lt);text-decoration:none}
+
+    @media(max-width:600px){
+      .nav-links{display:none}
+      .views-bar-wrap{display:none}
+      .badge-svg{width:280px;height:70px}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">PAN21 <span>Counter</span></a>
+  <div class="nav-links">
+    <a href="/">Startseite</a>
+    <a href="#top10">Top 10</a>
+    <a href="#top100">Top 100</a>
+    <a href="#badge">Badge</a>
+  </div>
+</nav>
+
+<!-- HERO mit Badge -->
+<section class="hero">
+  <div class="hero-eyebrow">Rangliste · Traffic-Statistik</div>
+  <h1>Die meistbesuchten <em>Websites</em></h1>
+  <p>Welche Seiten im PAN21 Counter Netzwerk haben den meisten Traffic? Hier die aktuelle Rangliste — live, öffentlich, kostenlos.</p>
+
+  <div class="badge-wrap">
+    <div id="heroBadge" style="margin:0 auto;display:inline-block"></div>
+    <div class="badge-label">Gesamte gezählte Hits im Netzwerk</div>
+  </div>
+</section>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('top10')" id="btn-top10">🏆 Top 10</button>
+    <button class="tab-btn" onclick="showTab('top100')" id="btn-top100">📊 Top 100</button>
+  </div>
+
+  <!-- TOP 10 -->
+  <div id="tab-top10">
+    <div id="top10-content" class="loading">Rangliste wird geladen …</div>
+  </div>
+
+  <!-- TOP 100 -->
+  <div id="tab-top100" style="display:none">
+    <div id="top100-content" class="loading">Wird geladen …</div>
+  </div>
+
+  <!-- Badge Einbindung -->
+  <div class="embed-section" id="badge">
+    <h3>🏅 Top-Ten-Badge einbinden</h3>
+    <p style="font-size:.87rem;color:var(--slate);margin-bottom:1rem">Zeigen Sie Ihren Besuchern, dass Sie zu den meistbesuchten Seiten im PAN21 Counter Netzwerk gehören. Badge einbinden mit einer Zeile HTML:</p>
+    <div class="code-box" id="badgeCodeBox">
+      <button class="copy-btn" onclick="copyBadgeCode()">Kopieren</button>
+      <span id="badgeCode">&lt;a href="https://pan21counter.de/toplist" target="_blank"&gt;<br>
+  &lt;img src="https://pan21counter.de/badge/<span style="color:#ffd700">IHRE-ID</span>" alt="PAN21 Hits" height="40"&gt;<br>
+&lt;/a&gt;</span>
+    </div>
+    <p style="font-size:.78rem;color:var(--slate);margin-top:.75rem">Ersetzen Sie <strong>IHRE-ID</strong> durch Ihre Zähler-ID aus der Registrierungs-E-Mail. Das Badge zeigt Ihre aktuellen Pageviews live an.</p>
+  </div>
+</div>
+
+<footer>
+  <p><a href="/">PAN21 Counter</a> &nbsp;·&nbsp; <a href="/impressum.html">Impressum</a> &nbsp;·&nbsp; <a href="/datenschutz.html">Datenschutz</a></p>
+</footer>
+
+<script>
+let top10Data = null;
+let top100Data = null;
+
+// Hero-Badge rendern (Gesamtzahl aller Hits)
+async function loadHeroBadge() {
+  try {
+    const res = await fetch('/api/toplist?limit=100');
+    const data = await res.json();
+    const totalHits = (data.sites || []).reduce((sum, s) => sum + s.total_views, 0);
+    const display = String(totalHits).padStart(6, '0');
+    document.getElementById('heroBadge').innerHTML = renderBadgeSVG(display);
+  } catch(e) {
+    document.getElementById('heroBadge').innerHTML = renderBadgeSVG('000000');
+  }
+}
+
+function renderBadgeSVG(display) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="80" viewBox="0 0 320 80" class="badge-svg">
+  <defs>
+    <linearGradient id="silver2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8e8e8"/><stop offset="40%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#a0a0a0"/>
+    </linearGradient>
+    <linearGradient id="blueBtn2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2255cc"/><stop offset="100%" stop-color="#0033aa"/>
+    </linearGradient>
+    <linearGradient id="bar2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4488ff"/><stop offset="100%" stop-color="#1144cc"/>
+    </linearGradient>
+    <filter id="glow2"><feGaussianBlur stdDeviation="1.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect x="1" y="1" width="318" height="78" rx="8" ry="8" fill="url(#silver2)" stroke="#888" stroke-width="1.5"/>
+  <rect x="3" y="3" width="314" height="74" rx="6" ry="6" fill="none" stroke="#fff" stroke-width="1" opacity="0.5"/>
+  <rect x="6" y="6" width="82" height="68" rx="4" ry="4" fill="url(#blueBtn2)" stroke="#1133aa" stroke-width="1"/>
+  <text x="47" y="32" font-family="Arial Black, Arial" font-size="16" font-weight="900" fill="white" text-anchor="middle" letter-spacing="1">PAN21</text>
+  <text x="47" y="52" font-family="Arial Black, Arial" font-size="13" font-weight="700" fill="white" text-anchor="middle" letter-spacing="2">HITS</text>
+  <text x="195" y="18" font-family="Arial" font-size="9" font-weight="700" fill="#1144bb" text-anchor="middle" letter-spacing="3">TOP TEN</text>
+  <rect x="94" y="22" width="170" height="38" rx="3" ry="3" fill="#0a0a0a" stroke="#333" stroke-width="1"/>
+  <rect x="95" y="23" width="168" height="36" rx="2" ry="2" fill="#050510"/>
+  <text x="180" y="51" font-family="'Courier New', monospace" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="4" filter="url(#glow2)">${display}</text>
+  <rect x="272" y="50" width="8" height="18" rx="1" fill="url(#bar2)" opacity="0.7"/>
+  <rect x="284" y="38" width="8" height="30" rx="1" fill="url(#bar2)" opacity="0.85"/>
+  <rect x="296" y="24" width="10" height="44" rx="1" fill="url(#bar2)"/>
+  <rect x="3" y="3" width="314" height="20" rx="6" ry="6" fill="white" opacity="0.12"/>
+</svg>`;
+}
+
+// Rangliste rendern
+function renderTable(sites, maxViews) {
+  if (!sites || sites.length === 0) {
+    return '<div class="empty">Noch keine Daten vorhanden. Warten Sie bis die ersten Seiten gezählt werden.</div>';
+  }
+
+  const medals = ['🥇','🥈','🥉'];
+
+  let html = `<table class="rank-table">
+    <thead>
+      <tr>
+        <th style="width:52px">#</th>
+        <th>Website</th>
+        <th style="text-align:right">Pageviews</th>
+        <th class="views-bar-wrap" style="width:140px"></th>
+      </tr>
+    </thead>
+    <tbody>`;
+
+  sites.forEach((site, i) => {
+    const pct = Math.round((site.total_views / maxViews) * 100);
+    const rankClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
+    const rankLabel = i < 3 ? medals[i] : String(site.rank);
+    const siteUrl = site.url ? (site.url.startsWith('http') ? site.url : 'https://' + site.url) : '';
+    const statsUrl = '/stats/' + site.site_id;
+
+    html += `<tr>
+      <td><div class="rank-num ${rankClass}">${rankLabel}</div></td>
+      <td>
+        <div class="site-name"><a href="${statsUrl}" style="color:inherit;text-decoration:none">${escHtml(site.sitename || site.site_id)}</a></div>
+        ${siteUrl ? `<div class="site-url"><a href="${siteUrl}" target="_blank" rel="noopener">${escHtml(site.url)}</a></div>` : ''}
+      </td>
+      <td class="views-cell">${site.total_views.toLocaleString('de-DE')}</td>
+      <td class="views-bar-wrap">
+        <div class="views-bar-bg"><div class="views-bar-fill" style="width:${pct}%"></div></div>
+      </td>
+    </tr>`;
+  });
+
+  html += '</tbody></table>';
+  return html;
+}
+
+function escHtml(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+async function loadToplist(limit) {
+  const res = await fetch(`/api/toplist?limit=${limit}`);
+  return await res.json();
+}
+
+async function initTop10() {
+  if (top10Data) return;
+  document.getElementById('top10-content').innerHTML = '<div class="loading">Wird geladen …</div>';
+  try {
+    top10Data = await loadToplist(10);
+    const maxViews = top10Data.sites?.[0]?.total_views || 1;
+    document.getElementById('top10-content').innerHTML = renderTable(top10Data.sites, maxViews);
+  } catch(e) {
+    document.getElementById('top10-content').innerHTML = '<div class="empty">Fehler beim Laden der Rangliste.</div>';
+  }
+}
+
+async function initTop100() {
+  if (top100Data) return;
+  document.getElementById('top100-content').innerHTML = '<div class="loading">Wird geladen …</div>';
+  try {
+    top100Data = await loadToplist(100);
+    const maxViews = top100Data.sites?.[0]?.total_views || 1;
+    document.getElementById('top100-content').innerHTML =
+      `<p style="font-size:.85rem;color:var(--slate);margin-bottom:1.5rem">${top100Data.total_sites} Websites registriert · Top ${top100Data.sites.length} nach Pageviews</p>` +
+      renderTable(top100Data.sites, maxViews);
+  } catch(e) {
+    document.getElementById('top100-content').innerHTML = '<div class="empty">Fehler beim Laden.</div>';
+  }
+}
+
+function showTab(tab) {
+  document.getElementById('tab-top10').style.display = tab === 'top10' ? 'block' : 'none';
+  document.getElementById('tab-top100').style.display = tab === 'top100' ? 'block' : 'none';
+  document.getElementById('btn-top10').classList.toggle('active', tab === 'top10');
+  document.getElementById('btn-top100').classList.toggle('active', tab === 'top100');
+  if (tab === 'top10') initTop10();
+  if (tab === 'top100') initTop100();
+}
+
+function copyBadgeCode() {
+  const code = document.getElementById('badgeCode').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const btn = document.querySelector('#badgeCodeBox .copy-btn');
+    btn.textContent = 'Kopiert ✓';
+    setTimeout(() => btn.textContent = 'Kopieren', 2000);
+  });
+}
+
+// Init
+loadHeroBadge();
+initTop10();
+</script>
+
+</body>
+</html>

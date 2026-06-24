@@ -228,7 +228,7 @@
       margin-top: 1rem;
       display: none;
     }
-    .form-msg.success { background: #e6f4ea; color: #1a6630; border: 1px solid #c3e6cb; display: block; }
+    .form-msg.success { background: #e6f4ea; color: #1a6630; border: 1px solid #c3e6cb; display: block; line-height: 1.5; }
     .form-msg.error   { background: #fdecea; color: #8b1a1a; border: 1px solid #f5c6cb; display: block; }
 
     /* STATS PAGE PREVIEW */
@@ -618,8 +618,28 @@
       });
       const data = await res.json();
       if (res.ok && data.ok) {
+        const siteId = data.site_id;
+        const embedCode = '<div id="pan21counter"></div>\n<script src="https://pan21counter.de/c.js?id=' + siteId + '" async><\/script>';
+        const statsUrl = 'https://pan21counter.de/stats/' + siteId;
+
         msg.className = 'form-msg success';
-        msg.textContent = '✓ Erledigt! Ihr Zähler-Code wurde an ' + email + ' geschickt. Bitte prüfen Sie Ihren Posteingang (ggf. auch den Spam-Ordner).';
+        msg.innerHTML = `
+          <div style="font-size:1.1rem;font-weight:700;margin-bottom:12px">✓ Ihr Zähler ist eingerichtet!</div>
+          <p style="margin:0 0 8px">Die Bestätigungsmail geht an <strong>${email}</strong>. Fügen Sie diesen Code in Ihre Website ein:</p>
+          <div style="position:relative;margin:12px 0">
+            <pre id="embedCodeBox" style="background:#0d1f3c;color:#c0e0ff;padding:14px 48px 14px 14px;border-radius:6px;font-size:12px;overflow-x:auto;margin:0;white-space:pre-wrap;word-break:break-all">${embedCode.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre>
+            <button onclick="copyEmbedCode()" id="copyBtn" style="position:absolute;top:8px;right:8px;background:#b8860b;color:#fff;border:none;padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer">Kopieren</button>
+          </div>
+          <p style="margin:8px 0 0;font-size:13px">Ihre Statistik: <a href="${statsUrl}" target="_blank" style="color:#b8860b">${statsUrl}</a></p>
+        `;
+        msg.style.display = 'block';
+
+        // Kopierfunktion
+        window.copyEmbedCode = function() {
+          navigator.clipboard.writeText(embedCode.replace(/&lt;/g,'<').replace(/&gt;/g,'>'))
+            .then(() => { document.getElementById('copyBtn').textContent = '✓ Kopiert!'; setTimeout(() => { const b = document.getElementById('copyBtn'); if(b) b.textContent = 'Kopieren'; }, 2000); });
+        };
+
         document.getElementById('email').value = '';
         document.getElementById('url').value = '';
         document.getElementById('sitename').value = '';

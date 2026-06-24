@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAN21 Counter — Kostenloser Besucherzähler für Websites</title>
+  <meta name="description" content="Gratis Besucherzähler für Ihre Website. Einfach einbinden, sofort zählen. Pageviews und Unique Visitors – kostenlos, ohne Registrierungspflicht. Free website counter service.">
+  <meta name="keywords" content="kostenloser zähler, besucherzähler, free counter, website counter, free hit counter, visitor counter, pageview counter, webzähler, zähler einbinden, gratis zähler, free website counter, kostenloser websitezähler, besucher zählen, visit counter, page counter, counter service, zähler service, free counter service, kostenlos zähler, statistik zähler, webstatistik kostenlos, gratis besucherzähler, free visitor counter, site counter, kostenloser seitenzähler, zähler code, counter code, hit counter, web counter, online counter, internet zähler">
+  <link rel="canonical" href="https://pan21counter.de/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PAN21 Counter — Kostenloser Besucherzähler">
+  <meta property="og:description" content="Gratis Besucherzähler für Ihre Website. Eine Zeile Code — sofort einsatzbereit.">
+  <meta property="og:url" content="https://pan21counter.de/">
+  <meta property="og:site_name" content="PAN21 Counter">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PAN21 Counter",
+    "url": "https://pan21counter.de",
+    "description": "Kostenloser Besucherzähler und Statistikservice für Websites. Gratis Pageview- und Unique-Visitor-Tracking.",
+    "applicationCategory": "WebAnalytics",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "operatingSystem": "All",
+    "creator": { "@type": "Organization", "name": "PAN21.COM Corporate Consultants Ltd", "url": "https://pan21.com" }
+  }
+  </script>
+
+  <!-- Robots / Sitemap -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+
+  <style>
+    :root {
+      --navy: #0d1f3c;
+      --navy2: #1a2f50;
+      --gold: #b8860b;
+      --gold-lt: #d4a017;
+      --white: #fff;
+      --mist: #e8ecf2;
+      --slate: #6b7ca0;
+      --ink: #1a1a2e;
+      --bg: #f5f7fa;
+      --radius: 6px;
+      --ff-d: 'Georgia', 'Times New Roman', serif;
+      --ff-b: 'Arial', 'Helvetica', sans-serif;
+      --trans: .2s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--ff-b); color: var(--ink); background: var(--white); line-height: 1.6; }
+
+    /* NAV */
+    nav {
+      background: var(--navy);
+      padding: .9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 2px solid var(--gold);
+    }
+    .nav-logo { color: var(--white); font-family: var(--ff-d); font-size: 1.3rem; font-weight: 700; text-decoration: none; }
+    .nav-logo span { color: var(--gold-lt); }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { color: rgba(255,255,255,.75); text-decoration: none; font-size: .88rem; transition: color var(--trans); }
+    .nav-links a:hover { color: var(--gold-lt); }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+      color: var(--white);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+    .hero-eyebrow { font-size: .75rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 1rem; }
+    .hero h1 { font-family: var(--ff-d); font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; line-height: 1.15; margin-bottom: 1.2rem; }
+    .hero h1 em { color: var(--gold-lt); font-style: normal; }
+    .hero p { font-size: 1.1rem; max-width: 580px; margin: 0 auto 2.5rem; opacity: .85; line-height: 1.7; }
+    .hero-badges { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+    .badge-pill {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(184,134,11,.4);
+      color: var(--gold-lt);
+      padding: .35rem .9rem;
+      border-radius: 20px;
+      font-size: .8rem;
+    }
+    .hero-cta {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--white);
+      padding: .85rem 2.2rem;
+      border-radius: var(--radius);
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: background var(--trans);
+    }
+    .hero-cta:hover { background: var(--gold-lt); }
+
+    /* DEMO BADGE */
+    .demo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      background: #f5f7fa;
+      color: #1a1a2e;
+      border: 1px solid #d0d7de;
+      border-radius: 4px;
+      font-family: Arial,sans-serif;
+      font-size: 12px;
+      margin: 2rem auto 0;
+    }
+    .demo-badge svg { opacity: .7; }
+
+    /* SECTION */
+    section { padding: 4rem 2rem; }
+    .container { max-width: 900px; margin: 0 auto; }
+    .section-eyebrow { font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: .8rem; }
+    .section-title { font-family: var(--ff-d); font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; margin-bottom: 1rem; color: var(--navy); }
+    .section-lead { font-size: 1rem; color: var(--slate); max-width: 620px; line-height: 1.75; margin-bottom: 2.5rem; }
+
+    /* HOW IT WORKS */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+    .step {
+      background: var(--bg);
+      border: 1px solid var(--mist);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .step-num {
+      width: 36px; height: 36px;
+      background: var(--navy);
+      color: var(--gold-lt);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--ff-d); font-weight: 700; font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; color: var(--navy); }
+    .step p { font-size: .88rem; color: var(--slate); line-height: 1.6; }
+
+    /* CODE BLOCK */
+    .code-box {
+      background: var(--navy);
+      color: #a8d8ea;
+      padding: 1.2rem 1.5rem;
+      border-radius: var(--radius);
+      font-family: 'Courier New', monospace;
+      font-size: .85rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute; top: .75rem; right: .75rem;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #fff;
+      padding: .3rem .7rem;
+      border-radius: 4px;
+      font-size: .75rem;
+      cursor: pointer;
+      transition: background var(--trans);
+    }
+    .copy-btn:hover { background: rgba(255,255,255,.2); }
+
+    /* FEATURES */
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+    .feat {
+      padding: 1.25rem;
+      border-left: 3px solid var(--gold);
+      background: var(--bg);
+    }
+    .feat h4 { font-size: .95rem; font-weight: 700; margin-bottom: .4rem; color: var(--navy); }
+    .feat p { font-size: .85rem; color: var(--slate); line-height: 1.55; }
+
+    /* REGISTER FORM */
+    #registrieren { background: var(--bg); }
+    .form-card {
+      background: var(--white);
+      border: 1px solid var(--mist);
+      border-radius: var(--radius);
+      padding: 2rem;
+      max-width: 540px;
+    }
+    .form-row { margin-bottom: 1.2rem; }
+    .form-row label { display: block; font-size: .85rem; font-weight: 600; margin-bottom: .4rem; color: var(--navy); }
+    .form-row input {
+      width: 100%;
+      padding: .65rem .9rem;
+      border: 1px solid #c8d0dc;
+      border-radius: var(--radius);
+      font-size: .95rem;
+      font-family: var(--ff-b);
+      transition: border-color var(--trans);
+      outline: none;
+    }
+    .form-row input:focus { border-color: var(--gold); }
+    .form-row .hint { font-size: .78rem; color: var(--slate); margin-top: .3rem; }
+    .hp-field { display: none !important; }
+    .form-submit {
+      width: 100%;
+      background: var(--navy);
+      color: var(--white);
+      padding: .8rem 1.5rem;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background var(--trans);
+    }
+    .form-submit:hover:not(:disabled) { background: var(--navy2); }
+    .form-submit:disabled { opacity: .6; cursor: default; }
+    .form-msg {
+      padding: .8rem 1rem;
+      border-radius: var(--radius);
+      font-size: .9rem;
+      margin-top: 1rem;
+      display: none;
+    }
+    .form-msg.success { background: #e6f4ea; color: #1a6630; border: 1px solid #c3e6cb; display: block; }
+    .form-msg.error   { background: #fdecea; color: #8b1a1a; border: 1px solid #f5c6cb; display: block; }
+
+    /* STATS PAGE PREVIEW */
+    .stats-preview {
+      background: var(--white);
+      border: 1px solid var(--mist);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .stats-num {
+      display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+    }
+    .s-num { text-align: center; }
+    .s-val { font-family: var(--ff-d); font-size: 2rem; font-weight: 700; color: var(--navy); }
+    .s-lbl { font-size: .78rem; color: var(--slate); text-transform: uppercase; letter-spacing: .08em; }
+    .chart-bars { display: flex; align-items: flex-end; gap: 4px; height: 60px; }
+    .bar { flex: 1; background: var(--navy); border-radius: 2px 2px 0 0; opacity: .7; transition: opacity var(--trans); }
+    .bar:hover { opacity: 1; }
+    .chart-label { font-size: .7rem; color: var(--slate); margin-top: .4rem; }
+
+    /* FAQ */
+    .faq-item { border-bottom: 1px solid var(--mist); padding: 1.1rem 0; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { font-weight: 700; font-size: .95rem; color: var(--navy); cursor: pointer; display: flex; justify-content: space-between; }
+    .faq-a { font-size: .88rem; color: var(--slate); line-height: 1.65; margin-top: .6rem; display: none; }
+    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-arrow { transition: transform var(--trans); }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.6);
+      padding: 2rem;
+      text-align: center;
+      font-size: .82rem;
+    }
+    footer a { color: var(--gold-lt); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero { padding: 3rem 1.2rem 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">PAN21 <span>Counter</span></a>
+  <div class="nav-links">
+    <a href="#wie-es-funktioniert">So funktioniert's</a>
+    <a href="#funktionen">Funktionen</a>
+    <a href="#registrieren">Kostenlos starten</a>
+    <a href="#faq">FAQ</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Kostenloser Besucherzähler · Free Website Counter</div>
+  <h1>Ihr <em>gratis Zähler</em><br>für jede Website</h1>
+  <p>Eine Zeile Code — und Sie sehen sofort, wie viele Besucher Ihre Seite hat. Pageviews und Unique Visitors, öffentlich einsehbar. Kostenlos, ohne Abo, ohne versteckte Kosten.</p>
+  <div class="hero-badges">
+    <span class="badge-pill">✓ Kostenlos</span>
+    <span class="badge-pill">✓ 1 Zeile Code</span>
+    <span class="badge-pill">✓ Pageviews + Unique Visitors</span>
+    <span class="badge-pill">✓ Öffentliche Statistik</span>
+    <span class="badge-pill">✓ Kein Cookie-Banner nötig</span>
+  </div>
+  <a href="#registrieren" class="hero-cta">Jetzt kostenlos registrieren →</a>
+
+  <!-- Demo Badge -->
+  <div style="margin-top:2.5rem;">
+    <div style="font-size:.78rem;color:rgba(255,255,255,.5);margin-bottom:.6rem;">So sieht Ihr Zähler-Badge aus:</div>
+    <div class="demo-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+      <span>12.847</span>
+      <span style="opacity:.4">|</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <span>4.291</span>
+    </div>
+  </div>
+</section>
+
+<!-- WIE ES FUNKTIONIERT -->
+<section id="wie-es-funktioniert">
+  <div class="container">
+    <div class="section-eyebrow">So einfach geht's</div>
+    <h2 class="section-title">In 3 Schritten zum Besucherzähler</h2>
+    <p class="section-lead">Kein Passwort, kein Login, keine Installation. Einfach E-Mail und Website-URL eingeben — fertig.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Registrieren</h3>
+        <p>E-Mail-Adresse und Website-URL eingeben. Wir schicken Ihnen sofort den Zähler-Code.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Code einbinden</h3>
+        <p>Einen kurzen JavaScript-Code in Ihre Website einbauen — in jede Seite, die Sie tracken möchten.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Zählen lassen</h3>
+        <p>Fertig. Das Badge zeigt Pageviews und Unique Visitors. Ihre öffentliche Statistikseite ist sofort verfügbar.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem;">
+      <div style="font-size:.85rem;font-weight:600;color:var(--navy);margin-bottom:.5rem;">Der Einbindungscode (2 Zeilen HTML):</div>
+      <div class="code-box" style="position:relative">
+        <button class="copy-btn" onclick="copyCode(this, 'embed')">Kopieren</button>
+        <span id="embed">&lt;div id="pan21counter"&gt;&lt;/div&gt;<br>&lt;script src="https://pan21counter.de/c.js?id=<em style="color:#ffd700">IHRE-ID</em>" async&gt;&lt;/script&gt;</span>
+      </div>
+      <p style="font-size:.82rem;color:var(--slate)">Optional: <code>&amp;style=dark</code> oder <code>&amp;style=minimal</code> für verschiedene Badge-Stile.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FUNKTIONEN -->
+<section id="funktionen" style="background:var(--bg)">
+  <div class="container">
+    <div class="section-eyebrow">Funktionsumfang</div>
+    <h2 class="section-title">Was PAN21 Counter zählt</h2>
+    <p class="section-lead">Schlank, datenschutzfreundlich und ohne Overhead. Wir zählen was zählt — und nichts weiter.</p>
+
+    <div class="features">
+      <div class="feat">
+        <h4>📊 Pageviews</h4>
+        <p>Jeder Seitenaufruf wird gezählt — Bots und Crawler werden automatisch herausgefiltert.</p>
+      </div>
+      <div class="feat">
+        <h4>👤 Unique Visitors</h4>
+        <p>Eindeutige Besucher pro Tag, ermittelt per anonymem IP-Hash. Keine personenbezogenen Daten.</p>
+      </div>
+      <div class="feat">
+        <h4>📈 30-Tage-Verlauf</h4>
+        <p>Öffentliche Statistikseite mit Balkengrafik der letzten 30 Tage — Pageviews und Unique.</p>
+      </div>
+      <div class="feat">
+        <h4>🔢 Gesamtzähler</h4>
+        <p>Kumulierte Pageviews und Unique Visitors seit Einbindung des Zählers — direkt im Badge.</p>
+      </div>
+      <div class="feat">
+        <h4>🎨 3 Badge-Stile</h4>
+        <p>Classic (hell), Dark (dunkel), Minimal (nur Text) — passend zu jedem Design.</p>
+      </div>
+      <div class="feat">
+        <h4>🔒 Datenschutzkonform</h4>
+        <p>Kein Cookie-Einsatz, kein Fingerprinting. IP-Adressen werden ausschließlich als tagesaktuelle Hashes gespeichert.</p>
+      </div>
+      <div class="feat">
+        <h4>💰 Gratis</h4>
+        <p>Kostenlos, kein Abo, keine Kreditkarte. Powered by PAN21 — finanziert durch das PAN21-Netzwerk.</p>
+      </div>
+      <div class="feat">
+        <h4>🌐 Jede Website</h4>
+        <p>HTML, WordPress, Shopify, Wix, Joomla, statische Seiten — überall einbindbar.</p>
+      </div>
+    </div>
+
+    <!-- Stats Preview -->
+    <div style="margin-top:3rem;">
+      <div style="font-size:.85rem;font-weight:600;color:var(--navy);margin-bottom:.5rem;">Vorschau: Ihre öffentliche Statistikseite</div>
+      <div class="stats-preview">
+        <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--slate);margin-bottom:.8rem;">beispiel.de · Statistik (Demo)</div>
+        <div class="stats-num">
+          <div class="s-num"><div class="s-val">12.847</div><div class="s-lbl">Pageviews gesamt</div></div>
+          <div class="s-num"><div class="s-val">4.291</div><div class="s-lbl">Unique Visitors gesamt</div></div>
+        </div>
+        <div style="font-size:.72rem;color:var(--slate);margin-bottom:.4rem;">Letzte 30 Tage</div>
+        <div class="chart-bars" id="demoChart"></div>
+        <div class="chart-label">← 30 Tage Verlauf</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATISTIKSEITE INFO -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">Öffentliche Statistik</div>
+    <h2 class="section-title">Zeigen Sie Ihren Besuchern, was los ist</h2>
+    <p class="section-lead">Jede registrierte Website erhält eine öffentliche Statistikseite unter <strong>pan21counter.de/stats/IHRE-ID</strong>. Kein Login erforderlich — einfach den Link teilen oder auf Ihrer Website verlinken.</p>
+    <div class="features" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))">
+      <div class="feat">
+        <h4>Direkt verlinkbar</h4>
+        <p>Zeigen Sie die URL auf Ihrer Website an — jeder kann Ihre Statistik einsehen, ohne sich anzumelden.</p>
+      </div>
+      <div class="feat">
+        <h4>Gesamtzähler + Verlauf</h4>
+        <p>Pageviews gesamt, Unique Visitors gesamt, plus 30-Tage-Balkengrafik für beide Werte.</p>
+      </div>
+      <div class="feat">
+        <h4>Automatisch aktuell</h4>
+        <p>Die Statistikseite aktualisiert sich automatisch — immer der aktuelle Stand, keine manuelle Aktualisierung nötig.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER FORM -->
+<section id="registrieren" style="background:var(--bg)">
+  <div class="container">
+    <div class="section-eyebrow">Kostenlos starten</div>
+    <h2 class="section-title">Jetzt Besucherzähler einrichten</h2>
+    <p class="section-lead">Keine Kreditkarte, kein Passwort, kein Abo. Einfach E-Mail und URL eingeben — wir schicken Ihnen sofort den Einbindungscode.</p>
+
+    <div class="form-card">
+      <div class="form-row">
+        <label for="email">Ihre E-Mail-Adresse *</label>
+        <input type="email" id="email" name="email" placeholder="ihre@email.de" autocomplete="email">
+        <div class="hint">Wir schicken den Einbindungscode nur an diese Adresse.</div>
+      </div>
+      <div class="form-row">
+        <label for="url">Ihre Website-URL *</label>
+        <input type="text" id="url" name="url" placeholder="www.ihrewebsite.de">
+      </div>
+      <div class="form-row">
+        <label for="sitename">Name Ihrer Website (optional)</label>
+        <input type="text" id="sitename" name="sitename" placeholder="z.B. Mein Blog">
+      </div>
+      <!-- Honeypot -->
+      <div class="hp-field" aria-hidden="true">
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+      <button class="form-submit" id="submitBtn" onclick="submitForm()">Kostenlos Zähler einrichten →</button>
+      <div class="form-msg" id="formMsg"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-eyebrow">Häufige Fragen</div>
+    <h2 class="section-title">FAQ</h2>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Ist der Besucherzähler wirklich kostenlos? <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">Ja, vollständig kostenlos und ohne versteckte Kosten. PAN21 Counter ist ein kostenloser Service des PAN21-Netzwerks. Es gibt kein Abo, keine Kreditkartenpflicht, keine Premium-Version.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Brauche ich einen Cookie-Banner für den Zähler? <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">Nein. PAN21 Counter setzt keine Cookies und verwendet kein Browser-Fingerprinting. Wir speichern lediglich einen anonymen Tages-Hash der IP-Adresse, um Unique Visitors zu erkennen. Dieser enthält keine personenbezogenen Daten und erfordert keine Cookie-Einwilligung.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Auf welchen Websites kann ich den Zähler einbinden? <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">Überall, wo Sie JavaScript einbinden können: HTML-Seiten, WordPress, Shopify, Wix, Jimdo, Typo3, Joomla, statische Websites, GitHub Pages, Vercel, Netlify u.v.m.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Wie werden Bots herausgefiltert? <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">Wir prüfen den User-Agent jedes Requests und filtern bekannte Crawler, Suchmaschinen-Bots und automatisierte Tools heraus. Nur echte Browser-Requests werden gezählt.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Kann ich mehrere Websites registrieren? <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">Ja. Für jede Website erhalten Sie eine eigene Zähler-ID und einen eigenen Einbindungscode. Einfach das Formular erneut ausfüllen.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Was bedeutet "Unique Visitor"? <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">Ein Unique Visitor ist ein Besucher, der Ihre Seite an einem bestimmten Tag zum ersten Mal aufruft. Besucht dieselbe Person Ihre Seite mehrfach am selben Tag, zählt das als ein Unique Visitor, aber mehrere Pageviews.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Gibt es eine API? <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">Ja. Unter <code>https://pan21counter.de/api/stats-public?id=IHRE-ID</code> können Sie die Statistikdaten als JSON abrufen — für eigene Integrationen, Dashboards oder Anzeigen.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p style="margin-bottom:.5rem">
+    <a href="/">PAN21 Counter</a> &nbsp;·&nbsp;
+    <a href="/impressum.html">Impressum</a> &nbsp;·&nbsp;
+    <a href="/datenschutz.html">Datenschutz</a> &nbsp;·&nbsp;
+    <a href="https://pan21.com" target="_blank">PAN21.COM</a>
+  </p>
+  <p style="margin-top:.4rem">Ein kostenloser Service von <a href="https://pan21.com" target="_blank">PAN21.COM Corporate Consultants Ltd</a>, Kington, Herefordshire, UK</p>
+</footer>
+
+<script>
+  // Demo-Chart rendern
+  (function() {
+    const bars = document.getElementById('demoChart');
+    if (!bars) return;
+    const data = [12,8,15,22,18,30,25,19,28,35,20,17,24,31,26,33,28,22,36,30,25,20,29,34,28,22,31,38,35,42];
+    const max = Math.max(...data);
+    data.forEach(v => {
+      const b = document.createElement('div');
+      b.className = 'bar';
+      b.style.height = Math.max(4, Math.round((v / max) * 56)) + 'px';
+      b.title = v + ' Pageviews';
+      bars.appendChild(b);
+    });
+  })();
+
+  // FAQ Toggle
+  function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    item.classList.toggle('open');
+  }
+
+  // Copy Code
+  function copyCode(btn, id) {
+    const el = document.getElementById(id);
+    const text = el ? el.innerText : '';
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'Kopiert ✓';
+      setTimeout(() => btn.textContent = 'Kopieren', 2000);
+    });
+  }
+
+  // Register Form
+  const startTime = Date.now();
+
+  async function submitForm() {
+    const email   = document.getElementById('email').value.trim();
+    const url     = document.getElementById('url').value.trim();
+    const sitename = document.getElementById('sitename').value.trim();
+    const honeypot = document.getElementById('website').value;
+    const msg     = document.getElementById('formMsg');
+    const btn     = document.getElementById('submitBtn');
+
+    msg.className = 'form-msg';
+    msg.style.display = 'none';
+
+    if (!email || !email.includes('@')) {
+      msg.className = 'form-msg error';
+      msg.textContent = 'Bitte geben Sie eine gültige E-Mail-Adresse ein.';
+      return;
+    }
+    if (!url) {
+      msg.className = 'form-msg error';
+      msg.textContent = 'Bitte geben Sie Ihre Website-URL ein.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Wird verarbeitet …';
+
+    try {
+      const res = await fetch('/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email, url, sitename, honeypot,
+          elapsed: Date.now() - startTime,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.ok) {
+        msg.className = 'form-msg success';
+        msg.textContent = '✓ Erledigt! Ihr Zähler-Code wurde an ' + email + ' geschickt. Bitte prüfen Sie Ihren Posteingang (ggf. auch den Spam-Ordner).';
+        document.getElementById('email').value = '';
+        document.getElementById('url').value = '';
+        document.getElementById('sitename').value = '';
+      } else {
+        msg.className = 'form-msg error';
+        msg.textContent = data.error || 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.';
+      }
+    } catch (e) {
+      msg.className = 'form-msg error';
+      msg.textContent = 'Verbindungsfehler. Bitte versuchen Sie es erneut.';
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Kostenlos Zähler einrichten →';
+  }
+</script>
+
+</body>
+</html>

@@ -4,7 +4,8 @@
     { "source": "/track", "destination": "/api/track.js" },
     { "source": "/register", "destination": "/api/register.js" },
     { "source": "/stats/:id", "destination": "/stats.html" },
-    { "source": "/badge/:id", "destination": "/api/badge.js" }
+    { "source": "/badge/:id", "destination": "/api/badge.js" },
+    { "source": "/toplist", "destination": "/toplist.html" }
   ],
   "headers": [
     {
@@ -20,6 +21,13 @@
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "*" },
         { "key": "Cache-Control", "value": "no-cache, no-store" }
+      ]
+    },
+    {
+      "source": "/badge/:id",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Cache-Control", "value": "public, max-age=300" }
       ]
     }
   ]

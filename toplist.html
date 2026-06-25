@@ -120,7 +120,7 @@
 <section class="hero">
   <div class="hero-eyebrow">Rangliste · Traffic-Statistik</div>
   <h1>Die meistbesuchten <em>Websites</em></h1>
-    <p class="toplist-date">Toplist am <strong id="toplist-date-display">...</strong></p>
+    <p class="toplist-date">Toplist am <strong class="toplist-date-display">...</strong></p>
   <p>Welche Seiten im PAN21 Counter Netzwerk haben den meisten Traffic? Hier die aktuelle Rangliste — live, öffentlich, kostenlos.</p>
 
   <div class="badge-wrap">
@@ -260,7 +260,14 @@ function escHtml(str) {
 
 async function loadToplist(limit) {
   const res = await fetch(`/api/toplist?limit=${limit}`);
-  return await res.json();
+  const data = await res.json();
+  // Datum anzeigen
+  if (data.date) {
+    const [y, m, d] = data.date.split('-');
+    const dateStr = `${d}.${m}.${y}`;
+    document.querySelectorAll('.toplist-date-display').forEach(el => el.textContent = dateStr);
+  }
+  return data;
 }
 
 async function initTop10() {

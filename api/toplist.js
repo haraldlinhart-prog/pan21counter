@@ -12,9 +12,17 @@ export default async function handler(req, res) {
   const limit = Math.min(parseInt(req.query.limit || '10'), 100);
 
   // Gesamte Pageviews + Unique Visitors pro Site aggregieren
+  // Nur Hits von heute (UTC)
+  const today = new Date();
+  const todayStr = today.toISOString().slice(0, 10); // YYYY-MM-DD
+  const from = `${todayStr}T00:00:00.000Z`;
+  const to   = `${todayStr}T23:59:59.999Z`;
+
   const { data, error } = await supabase
     .from('pc_hits')
     .select('site_id')
+    .gte('created_at', from)
+    .lte('created_at', to)
     .throwOnError();
 
   if (error) return res.status(500).json({ error: error.message });
@@ -52,6 +60,6 @@ export default async function handler(req, res) {
     .slice(0, limit)
     .map((item, i) => ({ ...item, rank: i + 1 }));
 
-  res.setHeader('Cache-Control', 'public, max-age=300');
-  res.status(200).json({ limit, total_sites: siteIds.length, sites: ranked });
+  res.setHeader('Cache-Control', 'public, max-age=60');
+  res.status(200).json({ date: todayStr, limit, total_sites: siteIds.length, sites: ranked });
 }

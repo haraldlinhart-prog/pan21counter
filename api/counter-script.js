@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     return res.status(200).send('/* pan21counter: missing id */');
   }
 
-  const baseUrl = 'https://pan21counter.de';
+  const baseUrl = 'https://www.pan21counter.de';
 
   const script = `
 (function() {

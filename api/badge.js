@@ -9,13 +9,14 @@ const ICON = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIsAAACMCAYAAABMHFpH
 
 function bars(x, y, color, accent) {
   return `<g transform="translate(${x},${y})">
-    <rect x="0"  y="14" width="4" height="6"  rx="1" fill="${color}" opacity="0.55"/>
-    <rect x="7"  y="9"  width="4" height="11" rx="1" fill="${color}" opacity="0.75"/>
-    <rect x="14" y="4"  width="4" height="16" rx="1" fill="${accent}"/>
+    <rect x="0"  y="9" width="3.5" height="5"  rx="1" fill="${color}" opacity="0.55"/>
+    <rect x="6"  y="6" width="3.5" height="8" rx="1" fill="${color}" opacity="0.75"/>
+    <rect x="12" y="2" width="3.5" height="12" rx="1" fill="${accent}"/>
   </g>`;
 }
 
-function svgBadge({ width, height, bg, border, radius, dark, numColor, labelTop, numOffset }) {
+// Große Badges (TOP TEN / TOP 100): Icon+Titel links, rechts Balken oben und Zahl darunter (kein horizontaler Konflikt)
+function svgLarge({ width, height, bg, border, radius, dark, numColor, labelTop }) {
   const titleColor = dark ? '#ffffff' : '#1a1a2e';
   const accentColor = '#e8483c';
   const subColor = dark ? 'rgba(255,255,255,0.55)' : '#8a8f9c';
@@ -33,25 +34,48 @@ function svgBadge({ width, height, bg, border, radius, dark, numColor, labelTop,
   <image x="${iconX}" y="${iconY}" width="${iconSize}" height="${iconSize}" href="${ICON}"/>
   <text x="${textX}" y="${midY - 3}" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="800" fill="${titleColor}">PAN21<tspan fill="${accentColor}" font-weight="700"> Counter</tspan></text>
   <text x="${textX}" y="${midY + 13}" font-family="Arial, Helvetica, sans-serif" font-size="7.5" font-weight="700" fill="${subColor}" letter-spacing="1.5">${subLine}</text>
+  <line x1="${dividerX}" y1="10" x2="${dividerX}" y2="${height - 10}" stroke="${dividerColor}" stroke-width="1.5"/>
+  ${bars(width - 14 - 15.5, 9, dark ? 'rgba(232,72,60,0.55)' : 'rgba(232,72,60,0.5)', accentColor)}
+  <text x="${width - 14}" y="${height - 12}" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="800" fill="${numColor}" text-anchor="end">DISPLAY</text>
+</svg>`;
+}
+
+// Kompaktes Badge (ab Platz 101): unverändertes Layout, Balken neben der Zahl
+function svgCompact({ width, height, bg, border, radius }) {
+  const titleColor = '#1a1a2e';
+  const accentColor = '#e8483c';
+  const subColor = '#8a8f9c';
+  const dividerColor = 'rgba(0,0,0,0.12)';
+  const iconSize = height * 0.62;
+  const iconY = (height - iconSize) / 2;
+  const iconX = 14;
+  const textX = iconX + iconSize + 10;
+  const midY = height / 2;
+  const dividerX = width - 92;
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+  <rect x="1" y="1" width="${width - 2}" height="${height - 2}" rx="${radius}" ry="${radius}" fill="${bg}" stroke="${border}" stroke-width="1.5"/>
+  <image x="${iconX}" y="${iconY}" width="${iconSize}" height="${iconSize}" href="${ICON}"/>
+  <text x="${textX}" y="${midY - 3}" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="800" fill="${titleColor}">PAN21<tspan fill="${accentColor}" font-weight="700"> Counter</tspan></text>
+  <text x="${textX}" y="${midY + 13}" font-family="Arial, Helvetica, sans-serif" font-size="7.5" font-weight="700" fill="${subColor}" letter-spacing="1.5">VISITORS</text>
   <line x1="${dividerX}" y1="12" x2="${dividerX}" y2="${height - 12}" stroke="${dividerColor}" stroke-width="1.5"/>
-  ${bars(dividerX + 14, iconY, dark ? 'rgba(232,72,60,0.55)' : 'rgba(232,72,60,0.5)', accentColor)}
-  <text x="${width - 14}" y="${midY + numOffset}" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="800" fill="${numColor}" text-anchor="end">DISPLAY</text>
+  ${bars(dividerX + 14, iconY, 'rgba(232,72,60,0.5)', accentColor)}
+  <text x="${width - 14}" y="${midY + 8}" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="800" fill="${accentColor}" text-anchor="end">DISPLAY</text>
 </svg>`;
 }
 
 function render(views, rank) {
-  let width, height, opts;
+  const num = views.toLocaleString('de-DE');
   if (rank <= 10) {
-    width = 300; height = 66;
-    opts = { width, height, bg: '#0e1b33', border: '#1c2c4d', radius: 12, dark: true, numColor: '#e8483c', labelTop: 'TOP TEN', numOffset: 13 };
+    const opts = { width: 300, height: 66, bg: '#0e1b33', border: '#1c2c4d', radius: 12, dark: true, numColor: '#ffffff', labelTop: 'TOP TEN' };
+    return svgLarge(opts).replace('DISPLAY', num);
   } else if (rank <= 100) {
-    width = 300; height = 66;
-    opts = { width, height, bg: '#ffffff', border: '#eadadb', radius: 12, dark: false, numColor: '#e8483c', labelTop: 'TOP 100', numOffset: 13 };
+    const opts = { width: 300, height: 66, bg: '#ffffff', border: '#eadadb', radius: 12, dark: false, numColor: '#0d2a5c', labelTop: 'TOP 100' };
+    return svgLarge(opts).replace('DISPLAY', num);
   } else {
-    width = 280; height = 58;
-    opts = { width, height, bg: '#f4f5f7', border: '#e2e4e9', radius: 12, dark: false, numColor: '#e8483c', labelTop: null, numOffset: 8 };
+    const opts = { width: 280, height: 58, bg: '#f4f5f7', border: '#e2e4e9', radius: 12 };
+    return svgCompact(opts).replace('DISPLAY', num);
   }
-  return svgBadge(opts).replace('DISPLAY', views.toLocaleString('de-DE'));
 }
 
 export default async function handler(req, res) {

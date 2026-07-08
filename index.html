@@ -105,21 +105,12 @@
     }
     .hero-cta:hover { background: var(--gold-lt); }
 
-    /* DEMO BADGE */
-    .demo-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 5px 12px;
-      background: #f5f7fa;
-      color: #1a1a2e;
-      border: 1px solid #d0d7de;
-      border-radius: 4px;
-      font-family: Arial,sans-serif;
-      font-size: 12px;
-      margin: 2rem auto 0;
-    }
-    .demo-badge svg { opacity: .7; }
+    /* BADGE PREVIEW (echte Badge-Designs, wie sie tatsächlich ausgeliefert werden) */
+    .badge-preview-wrap { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 2.2rem; margin: 2.5rem auto 0; }
+    .badge-preview-item { display: flex; flex-direction: column; align-items: center; gap: .7rem; }
+    .badge-preview-item svg { display: block; filter: drop-shadow(0 4px 14px rgba(0,0,0,.35)); }
+    .badge-preview-cap { font-size: .74rem; color: rgba(255,255,255,.6); text-align: center; line-height: 1.4; }
+    .badge-preview-cap strong { color: var(--gold-lt); display: block; font-size: .8rem; margin-bottom: 2px; }
 
     /* SECTION */
     section { padding: 4rem 2rem; }
@@ -342,13 +333,55 @@ var sc_security="c23814a1";
 
   <!-- Demo Badge -->
   <div style="margin-top:2.5rem;">
-    <div style="font-size:.78rem;color:rgba(255,255,255,.5);margin-bottom:.6rem;">So sieht Ihr Zähler-Badge aus:</div>
-    <div class="demo-badge">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
-      <span>12.847</span>
-      <span style="opacity:.4">|</span>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-      <span>4.291</span>
+    <div style="font-size:.78rem;color:rgba(255,255,255,.5);margin-bottom:1rem;">So sieht Ihr Zähler-Badge aus — abhängig von Ihrem Rang in der Toplist:</div>
+    <div class="badge-preview-wrap">
+      <div class="badge-preview-item">
+        <svg width="320" height="80" viewBox="0 0 320 80" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="heroLsg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8e8e8"/><stop offset="40%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#a0a0a0"/></linearGradient>
+            <linearGradient id="heroLbb" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2255cc"/><stop offset="100%" stop-color="#0033aa"/></linearGradient>
+            <linearGradient id="heroLbr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4488ff"/><stop offset="100%" stop-color="#1144cc"/></linearGradient>
+            <filter id="heroLgl"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <rect x="1" y="1" width="318" height="78" rx="8" ry="8" fill="url(#heroLsg)" stroke="#888" stroke-width="1.5"/>
+          <rect x="3" y="3" width="314" height="74" rx="6" ry="6" fill="none" stroke="#fff" stroke-width="1" opacity="0.5"/>
+          <rect x="6" y="6" width="82" height="68" rx="4" ry="4" fill="url(#heroLbb)" stroke="#1133aa" stroke-width="1"/>
+          <text x="47" y="32" font-family="Arial Black,Arial" font-size="16" font-weight="900" fill="white" text-anchor="middle" letter-spacing="1">PAN21</text>
+          <text x="47" y="52" font-family="Arial Black,Arial" font-size="13" font-weight="700" fill="white" text-anchor="middle" letter-spacing="2">HITS</text>
+          <text x="195" y="18" font-family="Arial" font-size="9" font-weight="700" fill="#1144bb" text-anchor="middle" letter-spacing="3">TOP TEN</text>
+          <rect x="94" y="22" width="170" height="38" rx="3" ry="3" fill="#0a0a0a" stroke="#333" stroke-width="1"/>
+          <rect x="95" y="23" width="168" height="36" rx="2" ry="2" fill="#050510"/>
+          <text x="180" y="51" font-family="'Courier New',monospace" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="4" filter="url(#heroLgl)">012847</text>
+          <rect x="272" y="50" width="8" height="18" rx="1" fill="url(#heroLbr)" opacity="0.7"/>
+          <rect x="284" y="38" width="8" height="30" rx="1" fill="url(#heroLbr)" opacity="0.85"/>
+          <rect x="296" y="24" width="10" height="44" rx="1" fill="url(#heroLbr)"/>
+          <rect x="3" y="3" width="314" height="20" rx="6" ry="6" fill="white" opacity="0.12"/>
+        </svg>
+        <div class="badge-preview-cap"><strong>Platz 1–100</strong>Großes Badge mit „TOP TEN" bzw. „TOP HUNDRED"-Label</div>
+      </div>
+      <div class="badge-preview-item">
+        <svg width="280" height="60" viewBox="0 0 280 60" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="heroSsg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8e8e8"/><stop offset="40%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#a0a0a0"/></linearGradient>
+            <linearGradient id="heroSbb" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2255cc"/><stop offset="100%" stop-color="#0033aa"/></linearGradient>
+            <linearGradient id="heroSbr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4488ff"/><stop offset="100%" stop-color="#1144cc"/></linearGradient>
+            <filter id="heroSgl"><feGaussianBlur stdDeviation="1.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <rect x="1" y="1" width="278" height="58" rx="6" ry="6" fill="url(#heroSsg)" stroke="#888" stroke-width="1.5"/>
+          <rect x="2" y="2" width="276" height="56" rx="5" ry="5" fill="none" stroke="#fff" stroke-width="1" opacity="0.45"/>
+          <rect x="5" y="5" width="76" height="50" rx="3" ry="3" fill="url(#heroSbb)" stroke="#1133aa" stroke-width="1"/>
+          <text x="43" y="26" font-family="Arial Black,Arial" font-size="14" font-weight="900" fill="white" text-anchor="middle" letter-spacing="0.5">PAN21</text>
+          <text x="43" y="43" font-family="Arial Black,Arial" font-size="11" font-weight="700" fill="white" text-anchor="middle" letter-spacing="2">HITS</text>
+          <rect x="87" y="8" width="148" height="44" rx="3" ry="3" fill="#0a0a0a" stroke="#333" stroke-width="1"/>
+          <rect x="88" y="9" width="146" height="42" rx="2" ry="2" fill="#050510"/>
+          <text x="161" y="39" font-family="'Courier New',monospace" font-size="26" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="3" filter="url(#heroSgl)">000892</text>
+          <rect x="243" y="40" width="6" height="14" rx="1" fill="url(#heroSbr)" opacity="0.65"/>
+          <rect x="253" y="30" width="6" height="24" rx="1" fill="url(#heroSbr)" opacity="0.82"/>
+          <rect x="263" y="18" width="8" height="36" rx="1" fill="url(#heroSbr)"/>
+          <rect x="2" y="2" width="276" height="14" rx="5" ry="5" fill="white" opacity="0.11"/>
+        </svg>
+        <div class="badge-preview-cap"><strong>Ab Platz 101</strong>Kompaktes Badge, ohne Ranking-Label</div>
+      </div>
     </div>
   </div>
 </section>

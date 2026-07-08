@@ -44,6 +44,7 @@ function svgLarge({ width, height, bg, border, radius, dark, numColor, labelTop 
 function svgCompact({ width, height, bg, border, radius }) {
   const titleColor = '#1a1a2e';
   const accentColor = '#e8483c';
+  const numColor = '#0d2a5c';
   const subColor = '#8a8f9c';
   const dividerColor = 'rgba(0,0,0,0.12)';
   const iconSize = height * 0.62;
@@ -51,16 +52,16 @@ function svgCompact({ width, height, bg, border, radius }) {
   const iconX = 14;
   const textX = iconX + iconSize + 10;
   const midY = height / 2;
-  const dividerX = width - 92;
+  const dividerX = width - 82;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
   <rect x="1" y="1" width="${width - 2}" height="${height - 2}" rx="${radius}" ry="${radius}" fill="${bg}" stroke="${border}" stroke-width="1.5"/>
   <image x="${iconX}" y="${iconY}" width="${iconSize}" height="${iconSize}" href="${ICON}"/>
-  <text x="${textX}" y="${midY - 3}" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="800" fill="${titleColor}">PAN21<tspan fill="${accentColor}" font-weight="700"> Counter</tspan></text>
-  <text x="${textX}" y="${midY + 13}" font-family="Arial, Helvetica, sans-serif" font-size="7.5" font-weight="700" fill="${subColor}" letter-spacing="1.5">VISITORS</text>
-  <line x1="${dividerX}" y1="12" x2="${dividerX}" y2="${height - 12}" stroke="${dividerColor}" stroke-width="1.5"/>
-  ${bars(dividerX + 14, iconY, 'rgba(232,72,60,0.5)', accentColor)}
-  <text x="${width - 14}" y="${midY + 8}" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="800" fill="${accentColor}" text-anchor="end">DISPLAY</text>
+  <text x="${textX}" y="${midY - 3}" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="800" fill="${titleColor}">PAN21<tspan fill="${accentColor}" font-weight="700"> Counter</tspan></text>
+  <text x="${textX}" y="${midY + 12}" font-family="Arial, Helvetica, sans-serif" font-size="7" font-weight="700" fill="${subColor}" letter-spacing="1.2">VISITORS</text>
+  <line x1="${dividerX}" y1="9" x2="${dividerX}" y2="${height - 9}" stroke="${dividerColor}" stroke-width="1.5"/>
+  ${bars(width - 14 - 13.5, 8, 'rgba(232,72,60,0.5)', accentColor)}
+  <text x="${width - 14}" y="${height - 10}" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="800" fill="${numColor}" text-anchor="end">DISPLAY</text>
 </svg>`;
 }
 

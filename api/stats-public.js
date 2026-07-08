@@ -22,30 +22,28 @@ export default async function handler(req, res) {
     .eq('site_id', id)
     .single();
 
-  // Letzte 30 Tage
+  // Letzte 30 Tage — aus der Tages-Aggregat-Tabelle (schnell, keine Einzel-Hit-Details noetig)
   const { data: daily } = await supabase
-    .from('pc_hits')
-    .select('date, is_unique')
+    .from('pc_daily_stats')
+    .select('date, total_hits, unique_hits')
     .eq('site_id', id)
     .gte('date', new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10))
     .order('date', { ascending: true });
 
   const byDay = {};
   (daily || []).forEach(row => {
-    if (!byDay[row.date]) byDay[row.date] = { views: 0, unique: 0 };
-    byDay[row.date].views++;
-    if (row.is_unique) byDay[row.date].unique++;
+    byDay[row.date] = { views: row.total_hits, unique: row.unique_hits };
   });
 
-  // Rang ermitteln: alle Hits aggregieren
-  const { data: allHits } = await supabase
-    .from('pc_hits')
-    .select('site_id');
+  // Rang ermitteln: Gesamt-Hits pro Site aus der Aggregat-Tabelle summieren
+  const { data: allDaily } = await supabase
+    .from('pc_daily_stats')
+    .select('site_id, total_hits');
 
   let rank = 0;
-  if (allHits) {
+  if (allDaily) {
     const counts = {};
-    allHits.forEach(r => { counts[r.site_id] = (counts[r.site_id] || 0) + 1; });
+    allDaily.forEach(r => { counts[r.site_id] = (counts[r.site_id] || 0) + r.total_hits; });
     const myViews = stats.total_views;
     rank = Object.values(counts).filter(v => v > myViews).length + 1;
   }

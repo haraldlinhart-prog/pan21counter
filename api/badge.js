@@ -9,6 +9,14 @@ const supabase = createClient(
 function svgLarge(display, label) {
   const labelSize = label === 'TOP HUNDRED' ? '8' : '9';
   const letterSpc = label === 'TOP HUNDRED' ? '2' : '3';
+  const isTopTen = label === 'TOP TEN';
+  const labelX = isTopTen ? 202 : 195;
+  const crown = isTopTen ? `
+  <g transform="translate(128,3)">
+    <path d="M0 9 L0 3.3 L3.3 6.5 L6.5 0 L9.7 6.5 L13 3.3 L13 9 Z" fill="#f0c542" stroke="#8a6508" stroke-width="0.5" stroke-linejoin="round"/>
+    <rect x="0" y="9" width="13" height="2" rx="0.5" fill="#f0c542" stroke="#8a6508" stroke-width="0.4"/>
+    <circle cx="6.5" cy="2.3" r="1.1" fill="#fff6d8"/>
+  </g>` : '';
   return `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="80" viewBox="0 0 320 80">
   <defs>
     <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8e8e8"/><stop offset="40%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#a0a0a0"/></linearGradient>
@@ -18,10 +26,11 @@ function svgLarge(display, label) {
   </defs>
   <rect x="1" y="1" width="318" height="78" rx="8" ry="8" fill="url(#sg)" stroke="#888" stroke-width="1.5"/>
   <rect x="3" y="3" width="314" height="74" rx="6" ry="6" fill="none" stroke="#fff" stroke-width="1" opacity="0.5"/>
+
   <rect x="6" y="6" width="82" height="68" rx="4" ry="4" fill="url(#bb)" stroke="#1133aa" stroke-width="1"/>
   <text x="47" y="32" font-family="Arial Black,Arial" font-size="16" font-weight="900" fill="white" text-anchor="middle" letter-spacing="1">PAN21</text>
   <text x="47" y="52" font-family="Arial Black,Arial" font-size="13" font-weight="700" fill="white" text-anchor="middle" letter-spacing="2">HITS</text>
-  <text x="195" y="18" font-family="Arial" font-size="${labelSize}" font-weight="700" fill="#1144bb" text-anchor="middle" letter-spacing="${letterSpc}">${label}</text>
+  <text x="${labelX}" y="18" font-family="Arial" font-size="${labelSize}" font-weight="700" fill="#a8790a" text-anchor="middle" letter-spacing="${letterSpc}">${label}</text>${crown}
   <rect x="94" y="22" width="170" height="38" rx="3" ry="3" fill="#0a0a0a" stroke="#333" stroke-width="1"/>
   <rect x="95" y="23" width="168" height="36" rx="2" ry="2" fill="#050510"/>
   <text x="180" y="51" font-family="'Courier New',monospace" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="4" filter="url(#gl)">${display}</text>

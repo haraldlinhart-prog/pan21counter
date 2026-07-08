@@ -255,6 +255,22 @@
     .faq-item:last-child { border-bottom: none; }
     .faq-q { font-weight: 700; font-size: .95rem; color: var(--navy); cursor: pointer; display: flex; justify-content: space-between; }
     .faq-a { font-size: .88rem; color: var(--slate); line-height: 1.65; margin-top: .6rem; display: none; }
+
+    /* NEWS GRID */
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.5rem; margin-top: .5rem; }
+    .news-card { background: var(--white); border: 1px solid var(--mist); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: box-shadow var(--trans), transform var(--trans); }
+    .news-card:hover { box-shadow: 0 8px 24px rgba(13,31,60,.12); transform: translateY(-2px); }
+    .news-card a.news-thumb-link { display: block; position: relative; padding-top: 56%; background: var(--bg); overflow: hidden; }
+    .news-card img.news-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .news-source { position: absolute; bottom: 8px; left: 8px; background: rgba(13,31,60,.85); color: var(--gold-lt); font-size: .68rem; font-weight: 700; letter-spacing: .04em; padding: 3px 9px; border-radius: 3px; text-transform: uppercase; }
+    .news-body { padding: 1rem 1.1rem 1.2rem; display: flex; flex-direction: column; gap: .5rem; flex: 1; }
+    .news-title { font-size: .95rem; font-weight: 700; line-height: 1.35; color: var(--navy); text-decoration: none; }
+    .news-title:hover { color: var(--gold); }
+    .news-desc { font-size: .82rem; color: var(--slate); line-height: 1.55; flex: 1; }
+    .news-meta { font-size: .72rem; color: var(--slate); display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--mist); padding-top: .6rem; }
+    .news-meta a { color: var(--gold); text-decoration: none; font-weight: 600; }
+    .news-meta a:hover { text-decoration: underline; }
+    .news-loading, .news-error { font-size: .88rem; color: var(--slate); padding: 1rem 0; }
     .faq-item.open .faq-a { display: block; }
     .faq-item.open .faq-arrow { transform: rotate(180deg); }
     .faq-arrow { transition: transform var(--trans); }
@@ -451,6 +467,18 @@ var sc_security="c23814a1";
         <h4>Automatisch aktuell</h4>
         <p>Die Statistikseite aktualisiert sich automatisch — immer der aktuelle Stand, keine manuelle Aktualisierung nötig.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- WIRTSCHAFTSNEWS -->
+<section id="news">
+  <div class="container">
+    <div class="section-eyebrow">Aktuell</div>
+    <h2 class="section-title">Deutsche Wirtschaftsnews</h2>
+    <p class="section-lead">Die neuesten Schlagzeilen aus der deutschen Wirtschaft — automatisch aktualisiert, mit Bild und Link zur Originalquelle.</p>
+    <div class="news-grid" id="newsGrid">
+      <div class="news-loading">Lade aktuelle Nachrichten …</div>
     </div>
   </div>
 </section>
@@ -662,6 +690,52 @@ var sc_security="c23814a1";
     btn.disabled = false;
     btn.textContent = 'Kostenlos Zähler einrichten →';
   }
+
+  // WIRTSCHAFTSNEWS
+  function newsTimeAgo(iso) {
+    if (!iso) return '';
+    const diffMin = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
+    if (diffMin < 60) return 'vor ' + diffMin + ' Min.';
+    const diffH = Math.round(diffMin / 60);
+    if (diffH < 24) return 'vor ' + diffH + ' Std.';
+    return new Date(iso).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit' });
+  }
+
+  function newsEsc(s) {
+    return (s || '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  async function loadNews() {
+    const grid = document.getElementById('newsGrid');
+    if (!grid) return;
+    try {
+      const res = await fetch('/api/news?limit=9');
+      const data = await res.json();
+      if (!data.items || !data.items.length) {
+        grid.innerHTML = '<div class="news-error">Aktuell keine Nachrichten verfügbar.</div>';
+        return;
+      }
+      grid.innerHTML = data.items.map((item) => `
+        <article class="news-card">
+          <a class="news-thumb-link" href="${newsEsc(item.link)}" target="_blank" rel="noopener nofollow">
+            ${item.image ? `<img class="news-thumb" src="${newsEsc(item.image)}" alt="${newsEsc(item.title)}" loading="lazy">` : ''}
+            <span class="news-source">${newsEsc(item.source)}</span>
+          </a>
+          <div class="news-body">
+            <a class="news-title" href="${newsEsc(item.link)}" target="_blank" rel="noopener nofollow">${newsEsc(item.title)}</a>
+            <p class="news-desc">${newsEsc(item.description).slice(0, 140)}${item.description.length > 140 ? '…' : ''}</p>
+            <div class="news-meta">
+              <span>${newsTimeAgo(item.pubDate)}</span>
+              <a href="${newsEsc(item.link)}" target="_blank" rel="noopener nofollow">Zur Quelle →</a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    } catch (e) {
+      grid.innerHTML = '<div class="news-error">Nachrichten konnten nicht geladen werden.</div>';
+    }
+  }
+  loadNews();
 </script>
 
 <div id="pan21counter" style="display:none"></div>

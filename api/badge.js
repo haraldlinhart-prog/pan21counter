@@ -15,7 +15,7 @@ function bars(x, y, color, accent) {
   </g>`;
 }
 
-function svgBadge({ width, height, bg, border, radius, dark, numColor, labelTop }) {
+function svgBadge({ width, height, bg, border, radius, dark, numColor, labelTop, numOffset }) {
   const titleColor = dark ? '#ffffff' : '#1a1a2e';
   const accentColor = '#e8483c';
   const subColor = dark ? 'rgba(255,255,255,0.55)' : '#8a8f9c';
@@ -35,7 +35,7 @@ function svgBadge({ width, height, bg, border, radius, dark, numColor, labelTop 
   <text x="${textX}" y="${midY + 13}" font-family="Arial, Helvetica, sans-serif" font-size="7.5" font-weight="700" fill="${subColor}" letter-spacing="1.5">${subLine}</text>
   <line x1="${dividerX}" y1="12" x2="${dividerX}" y2="${height - 12}" stroke="${dividerColor}" stroke-width="1.5"/>
   ${bars(dividerX + 14, iconY, dark ? 'rgba(232,72,60,0.55)' : 'rgba(232,72,60,0.5)', accentColor)}
-  <text x="${width - 14}" y="${midY + 7}" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="800" fill="${numColor}" text-anchor="end">DISPLAY</text>
+  <text x="${width - 14}" y="${midY + numOffset}" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="800" fill="${numColor}" text-anchor="end">DISPLAY</text>
 </svg>`;
 }
 
@@ -43,13 +43,13 @@ function render(views, rank) {
   let width, height, opts;
   if (rank <= 10) {
     width = 300; height = 66;
-    opts = { width, height, bg: '#0e1b33', border: '#1c2c4d', radius: 12, dark: true, numColor: '#e8483c', labelTop: 'TOP TEN' };
+    opts = { width, height, bg: '#0e1b33', border: '#1c2c4d', radius: 12, dark: true, numColor: '#e8483c', labelTop: 'TOP TEN', numOffset: 13 };
   } else if (rank <= 100) {
     width = 300; height = 66;
-    opts = { width, height, bg: '#ffffff', border: '#eadadb', radius: 12, dark: false, numColor: '#e8483c', labelTop: 'TOP 100' };
+    opts = { width, height, bg: '#ffffff', border: '#eadadb', radius: 12, dark: false, numColor: '#e8483c', labelTop: 'TOP 100', numOffset: 13 };
   } else {
     width = 280; height = 58;
-    opts = { width, height, bg: '#f4f5f7', border: '#e2e4e9', radius: 12, dark: false, numColor: '#e8483c', labelTop: null };
+    opts = { width, height, bg: '#f4f5f7', border: '#e2e4e9', radius: 12, dark: false, numColor: '#e8483c', labelTop: null, numOffset: 8 };
   }
   return svgBadge(opts).replace('DISPLAY', views.toLocaleString('de-DE'));
 }

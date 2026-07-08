@@ -11,26 +11,20 @@ export default async function handler(req, res) {
 
   const limit = Math.min(parseInt(req.query.limit || '10'), 100);
 
-  // Gesamte Pageviews + Unique Visitors pro Site aggregieren
-  // Nur Hits von heute (UTC)
-  const today = new Date();
-  const todayStr = today.toISOString().slice(0, 10); // YYYY-MM-DD
-  const from = `${todayStr}T00:00:00.000Z`;
-  const to   = `${todayStr}T23:59:59.999Z`;
+  // Heutiges Ranking direkt aus der Tages-Aggregat-Tabelle (schnell, keine Einzel-Hits noetig)
+  const todayStr = new Date().toISOString().slice(0, 10);
 
   const { data, error } = await supabase
-    .from('pc_hits')
-    .select('site_id')
-    .gte('created_at', from)
-    .lte('created_at', to)
+    .from('pc_daily_stats')
+    .select('site_id, total_hits')
+    .eq('date', todayStr)
     .throwOnError();
 
   if (error) return res.status(500).json({ error: error.message });
 
-  // In JS aggregieren (Supabase Free hat kein group-by via REST)
   const counts = {};
   (data || []).forEach(row => {
-    counts[row.site_id] = (counts[row.site_id] || 0) + 1;
+    counts[row.site_id] = row.total_hits;
   });
 
   // Site-Infos aus pc_sites holen

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAN21counter Plus — Erweiterte Statistiken für Ihre Website</title>
+  <meta name="description" content="PAN21counter Plus: 365-Tage-Historie, wöchentlicher E-Mail-Report, Badge ohne Branding. Ab €0,99/Monat.">
+  <link rel="canonical" href="https://pan21counter.de/plus.html">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <style>
+    :root {
+      --navy: #0d1f3c; --navy2: #1a2f50; --gold: #b8860b; --gold-lt: #d4a017;
+      --white: #fff; --mist: #e8ecf2; --slate: #6b7ca0; --ink: #1a1a2e; --bg: #f5f7fa;
+      --radius: 6px; --ff-d: 'Georgia','Times New Roman',serif; --ff-b: 'Arial','Helvetica',sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--ff-b);color:var(--ink);background:var(--bg);line-height:1.6}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;background:var(--navy);}
+    nav a{color:#fff;text-decoration:none;font-family:var(--ff-d);font-size:1.1rem}
+    .wrap{max-width:680px;margin:0 auto;padding:48px 24px}
+    .hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:12px;padding:40px 32px;text-align:center;margin-bottom:32px}
+    .hero h1{font-family:var(--ff-d);font-size:2rem;margin-bottom:12px}
+    .hero .price{font-size:2.4rem;color:var(--gold-lt);font-weight:bold;margin:16px 0 4px}
+    .hero .price span{font-size:1rem;color:#cbd5e1}
+    .features{background:#fff;border-radius:12px;padding:32px;box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:24px}
+    .features ul{list-style:none}
+    .features li{padding:10px 0;border-bottom:1px solid var(--mist);display:flex;gap:10px;align-items:flex-start}
+    .features li:last-child{border-bottom:none}
+    .features li::before{content:"✓";color:var(--gold);font-weight:bold}
+    form{background:#fff;border-radius:12px;padding:32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+    label{display:block;font-size:.85rem;color:var(--slate);margin-bottom:6px;font-weight:600}
+    input{width:100%;padding:12px 14px;border:1.5px solid var(--mist);border-radius:var(--radius);font-size:1rem;margin-bottom:16px}
+    input:focus{outline:none;border-color:var(--gold)}
+    button{width:100%;background:var(--gold);color:#fff;border:none;padding:14px;border-radius:var(--radius);font-size:1.05rem;font-weight:700;cursor:pointer}
+    button:hover{background:var(--gold-lt)}
+    button:disabled{opacity:.6;cursor:default}
+    .msg{margin-top:14px;font-size:.9rem;padding:10px 14px;border-radius:var(--radius);display:none}
+    .msg.error{background:#fef2f2;color:#991b1b;display:block}
+    .msg.ok{background:#f0fdf4;color:#166534;display:block}
+    .hint{font-size:.78rem;color:var(--slate);margin-top:20px;text-align:center}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/">PAN21counter</a>
+  <a href="/toplist.html">Toplist</a>
+</nav>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>PAN21counter Plus</h1>
+    <p>Mehr Einblick in Ihre Besucherzahlen — für Websites, die es genauer wissen wollen.</p>
+    <div class="price">€0,99<span>/Monat</span></div>
+  </div>
+
+  <div class="features">
+    <ul>
+      <li>365-Tage-Statistik-Historie statt 30 Tage</li>
+      <li>Wöchentlicher E-Mail-Report mit den wichtigsten Kennzahlen</li>
+      <li>Badge ohne "PAN21counter"-Branding, dezentes eigenes Design</li>
+      <li>Jederzeit monatlich kündbar</li>
+    </ul>
+  </div>
+
+  <form id="plus-form">
+    <label for="site_id">Ihre Site-ID</label>
+    <input type="text" id="site_id" placeholder="z.B. A3F9B2" required>
+    <label for="email">E-Mail-Adresse</label>
+    <input type="email" id="email" placeholder="ihre@email.de" required>
+    <button type="submit" id="submit-btn">Jetzt upgraden — €0,99/Monat</button>
+    <div class="msg" id="msg"></div>
+  </form>
+
+  <p class="hint">Ihre Site-ID finden Sie in der Bestätigungs-E-Mail nach der Registrierung, oder in der URL Ihrer Statistikseite (pan21counter.de/stats/<strong>IHRE-ID</strong>).</p>
+</div>
+
+<script>
+document.getElementById('plus-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const msg = document.getElementById('msg');
+  msg.className = 'msg'; msg.textContent = '';
+  btn.disabled = true; btn.textContent = 'Einen Moment …';
+
+  const site_id = document.getElementById('site_id').value.trim().toUpperCase();
+  const email = document.getElementById('email').value.trim();
+
+  try {
+    const res = await fetch('/api/plus-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ site_id, email })
+    });
+    const data = await res.json();
+    if (res.ok && data.url) {
+      window.location.href = data.url;
+    } else {
+      msg.className = 'msg error';
+      msg.textContent = data.error || 'Das hat leider nicht funktioniert.';
+      btn.disabled = false; btn.textContent = 'Jetzt upgraden — €0,99/Monat';
+    }
+  } catch (err) {
+    msg.className = 'msg error';
+    msg.textContent = 'Verbindungsfehler. Bitte versuchen Sie es erneut.';
+    btn.disabled = false; btn.textContent = 'Jetzt upgraden — €0,99/Monat';
+  }
+});
+
+// Erfolgsmeldung nach Rückkehr von Stripe
+const params = new URLSearchParams(window.location.search);
+if (params.get('success')) {
+  document.querySelector('.wrap').insertAdjacentHTML('afterbegin',
+    '<div class="msg ok" style="display:block;margin-bottom:20px;">✓ Zahlung erfolgreich! Sie erhalten in Kürze eine Bestätigungs-E-Mail. Plus-Features sind sofort aktiv.</div>');
+}
+if (params.get('cancelled')) {
+  document.querySelector('.wrap').insertAdjacentHTML('afterbegin',
+    '<div class="msg error" style="display:block;margin-bottom:20px;">Zahlung abgebrochen. Sie können es jederzeit erneut versuchen.</div>');
+}
+</script>
+
+</body>
+</html>

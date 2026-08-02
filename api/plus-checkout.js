@@ -36,7 +36,7 @@ export default async function handler(req, res) {
       },
       quantity: 1,
     }],
-    metadata: { site_id, email },
+    metadata: { product: 'pan21counter', site_id, email },
     success_url: 'https://pan21counter.de/plus.html?success=1&site=' + site_id,
     cancel_url: 'https://pan21counter.de/plus.html?cancelled=1',
   });

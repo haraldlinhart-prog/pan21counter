@@ -64,9 +64,28 @@ export default async function handler(req, res) {
   return res.status(200).json({ ok: true, site_id: siteId });
 }
 
+async function buildToolsFooterHtml(excludeSlug) {
+  try {
+    const res = await fetch('https://shop.pan21.com/api/webmaster-tools', { signal: AbortSignal.timeout(4000) });
+    const data = await res.json();
+    const tools = (data.tools || []).filter((t) => t.slug !== excludeSlug);
+    if (tools.length === 0) return '';
+    const rows = tools.map((t) =>
+      `<tr><td style="padding:4px 8px 4px 0;">${t.emoji}</td><td style="padding:4px 8px 4px 0;"><a href="${t.url}" style="color:#0d1f3c;font-weight:600;text-decoration:none;">${t.name}</a></td><td style="padding:4px 0;color:#6b7ca0;">${t.description}</td></tr>`
+    ).join('');
+    return `<div style="margin-top:20px;padding-top:16px;border-top:1px solid #e8ecf2;">
+      <p style="font-size:13px;color:#1a1a2e;font-weight:700;margin-bottom:8px;">Kennen Sie schon unsere anderen kostenlosen Webmaster-Tools?</p>
+      <table style="font-size:12px;border-collapse:collapse;">${rows}</table>
+    </div>`;
+  } catch (e) {
+    return '';
+  }
+}
+
 async function sendConfirmationEmail(email, url, sitename, siteId) {
   const embedCode = `<div id="pan21counter"></div>\n<script src="https://pan21counter.de/c.js?id=${siteId}" async></script>`;
   const statsUrl = `https://pan21counter.de/stats/${siteId}`;
+  const toolsFooter = await buildToolsFooterHtml('pan21counter');
 
   await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -95,6 +114,7 @@ async function sendConfirmationEmail(email, url, sitename, siteId) {
 
     <p style="font-size:13px;color:#6b7ca0;margin-top:20px">Ihre Zähler-ID: <strong>${siteId}</strong><br>
     Optional: Style-Parameter <code>?id=${siteId}&style=dark</code> oder <code>&style=minimal</code></p>
+    ${toolsFooter}
   </div>
   <div style="padding:12px 24px;background:#e8ecf2;font-size:11px;color:#6b7ca0">
     PAN21 Counter · pan21counter.de · Ein kostenloser Service von PAN21.COM

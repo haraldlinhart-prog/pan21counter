@@ -3,4 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /stats/
 
-Sitemap: https://pan21counter.de/sitemap.xml
+Sitemap: https://www.pan21counter.de/sitemap.xml

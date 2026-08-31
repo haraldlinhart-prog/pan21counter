@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin — PAN21 Counter</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: #0d1f3c;
+    color: #1a1a2e;
+    margin: 0;
+    min-height: 100vh;
+  }
+  .topbar {
+    background: #0d1f3c;
+    border-bottom: 3px solid #b8860b;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topbar h1 { color: #fff; font-size: 18px; margin: 0; }
+  .topbar .meta { color: #c0e0ff; font-size: 13px; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
+  #login-screen {
+    max-width: 360px;
+    margin: 80px auto;
+    background: #fff;
+    border-radius: 8px;
+    padding: 32px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  }
+  #login-screen h2 { margin-top: 0; font-size: 16px; color: #0d1f3c; }
+  #login-screen input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d0d7e2;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+  #login-screen button {
+    width: 100%;
+    padding: 10px 12px;
+    background: #b8860b;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  #login-screen button:hover { background: #9c7009; }
+  #login-error { color: #c0392b; font-size: 13px; margin-bottom: 12px; display: none; }
+
+  #admin-content { display: none; }
+
+  .toolbar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .toolbar input[type=text] {
+    flex: 1;
+    min-width: 220px;
+    padding: 8px 12px;
+    border: 1px solid #d0d7e2;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #fff;
+  }
+  .toolbar button {
+    padding: 8px 14px;
+    background: #fff;
+    border: 1px solid #d0d7e2;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #0d1f3c;
+  }
+  .toolbar button:hover { background: #f5f7fa; }
+  .count-badge {
+    background: #fff;
+    color: #0d1f3c;
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  thead th {
+    text-align: left;
+    background: #f5f7fa;
+    color: #6b7ca0;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 10px 12px;
+    border-bottom: 2px solid #e8ecf2;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  thead th:hover { color: #0d1f3c; }
+  tbody td {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid #f0f2f6;
+    vertical-align: middle;
+  }
+  tbody tr:hover { background: #fafbfd; }
+  code.site-code {
+    background: #eef2f8;
+    color: #0d1f3c;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'SF Mono', Monaco, monospace;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  a.stats-link { color: #b8860b; text-decoration: none; font-size: 12px; }
+  a.stats-link:hover { text-decoration: underline; }
+  .copy-btn {
+    background: none;
+    border: 1px solid #d0d7e2;
+    border-radius: 3px;
+    font-size: 11px;
+    padding: 2px 6px;
+    cursor: pointer;
+    color: #6b7ca0;
+    margin-left: 4px;
+  }
+  .copy-btn:hover { background: #f5f7fa; }
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #c0e0ff;
+  }
+  .loading { text-align: center; padding: 60px 20px; color: #c0e0ff; }
+</style>
+</head>
+<body>
+
+<div id="login-screen">
+  <h2>PAN21 Counter — Admin</h2>
+  <div id="login-error">Falsches Passwort.</div>
+  <input type="password" id="password-input" placeholder="Admin-Passwort" autocomplete="current-password">
+  <button onclick="doLogin()">Anmelden</button>
+</div>
+
+<div id="admin-content">
+  <div class="topbar">
+    <h1>PAN21 Counter — Registrierte Websites</h1>
+    <div class="meta" id="last-updated"></div>
+  </div>
+  <div class="wrap">
+    <div class="toolbar">
+      <span class="count-badge" id="count-badge">–</span>
+      <input type="text" id="search-input" placeholder="Suche nach Domain, Sitename, E-Mail oder Code..." oninput="renderTable()">
+      <button onclick="loadSites()">🔄 Aktualisieren</button>
+      <button onclick="exportCsv()">⬇ CSV export</button>
+    </div>
+    <div id="table-container"><div class="loading">Lade Daten…</div></div>
+  </div>
+</div>
+
+<script>
+let ADMIN_PASSWORD = '';
+let allSites = [];
+let sortKey = 'created_at';
+let sortDir = 'desc';
+
+function doLogin() {
+  const pw = document.getElementById('password-input').value;
+  if (!pw) return;
+  ADMIN_PASSWORD = pw;
+  document.getElementById('login-error').style.display = 'none';
+  loadSites();
+}
+
+document.getElementById('password-input').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') doLogin();
+});
+
+async function loadSites() {
+  const container = document.getElementById('table-container');
+  try {
+    const res = await fetch('/api/admin-sites', {
+      headers: { 'X-Admin-Password': ADMIN_PASSWORD }
+    });
+    if (res.status === 401) {
+      document.getElementById('login-screen').style.display = 'block';
+      document.getElementById('admin-content').style.display = 'none';
+      document.getElementById('login-error').style.display = 'block';
+      return;
+    }
+    const data = await res.json();
+    allSites = data.sites || [];
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-content').style.display = 'block';
+    document.getElementById('last-updated').textContent = 'Stand: ' + new Date().toLocaleString('de-DE');
+    renderTable();
+  } catch (e) {
+    container.innerHTML = '<div class="empty-state">Fehler beim Laden: ' + e.message + '</div>';
+  }
+}
+
+function sortBy(key) {
+  if (sortKey === key) {
+    sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+  } else {
+    sortKey = key;
+    sortDir = 'asc';
+  }
+  renderTable();
+}
+
+function renderTable() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  let rows = allSites.filter(s =>
+    !q ||
+    (s.url || '').toLowerCase().includes(q) ||
+    (s.sitename || '').toLowerCase().includes(q) ||
+    (s.email || '').toLowerCase().includes(q) ||
+    (s.site_id || '').toLowerCase().includes(q)
+  );
+
+  rows.sort((a, b) => {
+    let va = a[sortKey], vb = b[sortKey];
+    if (sortKey === 'total_hits') { va = va || 0; vb = vb || 0; }
+    else { va = (va || '').toString().toLowerCase(); vb = (vb || '').toString().toLowerCase(); }
+    if (va < vb) return sortDir === 'asc' ? -1 : 1;
+    if (va > vb) return sortDir === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  document.getElementById('count-badge').textContent = rows.length + ' von ' + allSites.length + ' Websites';
+
+  const container = document.getElementById('table-container');
+  if (rows.length === 0) {
+    container.innerHTML = '<div class="empty-state">Keine Ergebnisse.</div>';
+    return;
+  }
+
+  const th = (label, key) => `<th onclick="sortBy('${key}')">${label}${sortKey === key ? (sortDir === 'asc' ? ' ▲' : ' ▼') : ''}</th>`;
+
+  let html = '<table><thead><tr>' +
+    th('Code', 'site_id') +
+    th('Sitename', 'sitename') +
+    th('Domain', 'url') +
+    th('E-Mail', 'email') +
+    th('Views (gesamt)', 'total_hits') +
+    th('Registriert am', 'created_at') +
+    '<th>Stats</th>' +
+    '</tr></thead><tbody>';
+
+  rows.forEach(s => {
+    const created = s.created_at ? new Date(s.created_at).toLocaleDateString('de-DE') : '–';
+    html += `<tr>
+      <td><code class="site-code">${escapeHtml(s.site_id)}</code><button class="copy-btn" onclick="copyText('${escapeHtml(s.site_id)}')">Kopieren</button></td>
+      <td>${escapeHtml(s.sitename || '–')}</td>
+      <td><a href="https://${escapeHtml(s.url)}" target="_blank" style="color:#0d1f3c;text-decoration:none;">${escapeHtml(s.url)}</a></td>
+      <td>${escapeHtml(s.email)}</td>
+      <td>${(s.total_hits || 0).toLocaleString('de-DE')}</td>
+      <td>${created}</td>
+      <td><a class="stats-link" href="/stats/${escapeHtml(s.site_id)}" target="_blank">Ansehen →</a></td>
+    </tr>`;
+  });
+
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+function copyText(text) {
+  navigator.clipboard.writeText(text);
+}
+
+function exportCsv() {
+  const rows = allSites;
+  const header = ['site_id', 'sitename', 'url', 'email', 'total_hits', 'created_at'];
+  let csv = header.join(';') + '\n';
+  rows.forEach(s => {
+    csv += header.map(k => '"' + String(s[k] ?? '').replace(/"/g, '""') + '"').join(';') + '\n';
+  });
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'pan21counter-sites-' + new Date().toISOString().slice(0, 10) + '.csv';
+  link.click();
+}
+
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+</script>
+
+</body>
+</html>

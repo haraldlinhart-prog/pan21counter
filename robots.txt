@@ -5,3 +5,4 @@ Disallow: /stats/
 Disallow: /admin
 
 Sitemap: https://www.pan21counter.de/sitemap.xml
+Sitemap: https://www.pan21counter.de/sitemap-blog.xml

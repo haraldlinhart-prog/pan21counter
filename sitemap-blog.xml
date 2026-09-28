@@ -2,8 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.pan21counter.de/blog/</loc>
-    <lastmod>2026-09-24</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.pan21counter.de/blog/besucherzahler-wordpress-die-besten-losungen-fur-ihre-website/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.pan21counter.de/blog/traffic-counter-website-kostenlos-so-optimieren-sie-ihre-website-analy/</loc>

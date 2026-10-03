@@ -13,12 +13,12 @@
       "destination": "/api/register.js"
     },
     {
-      "source": "/stats/:id",
-      "destination": "/stats"
+      "source": "/stats/:id/",
+      "destination": "/stats.html"
     },
     {
-      "source": "/en/stats/:id",
-      "destination": "/en/stats"
+      "source": "/en/stats/:id/",
+      "destination": "/en/stats.html"
     },
     {
       "source": "/en/toplist",

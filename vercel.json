@@ -2,23 +2,23 @@
   "rewrites": [
     {
       "source": "/c.js",
-      "destination": "/api/counter-script.js"
+      "destination": "/api/counter-script"
     },
     {
       "source": "/track",
-      "destination": "/api/track.js"
+      "destination": "/api/track"
     },
     {
       "source": "/track/",
-      "destination": "/api/track.js"
+      "destination": "/api/track"
     },
     {
       "source": "/register",
-      "destination": "/api/register.js"
+      "destination": "/api/register"
     },
     {
       "source": "/register/",
-      "destination": "/api/register.js"
+      "destination": "/api/register"
     },
     {
       "source": "/stats/:id",
@@ -38,23 +38,23 @@
     },
     {
       "source": "/en/toplist",
-      "destination": "/en/toplist.html"
+      "destination": "/en/toplist"
     },
     {
       "source": "/badge/:id",
-      "destination": "/api/badge.js"
+      "destination": "/api/badge"
     },
     {
       "source": "/badge/:id/",
-      "destination": "/api/badge.js"
+      "destination": "/api/badge"
     },
     {
       "source": "/toplist",
-      "destination": "/toplist.html"
+      "destination": "/toplist"
     },
     {
       "source": "/admin",
-      "destination": "/admin.html"
+      "destination": "/admin"
     }
   ],
   "headers": [

@@ -302,6 +302,17 @@
       .nav-links::-webkit-scrollbar { display: none; }
       .hero { padding: 3rem 1.2rem 2.5rem; }
     }
+
+    /* Floating support/newsletter buttons on small screens: compact, bottom right,
+       and hidden while the hero headline/CTA is on screen */
+    @media (max-width: 600px) {
+      #pan21-nl-wrap { bottom: 14px !important; right: 12px !important; }
+      #pan21-sup-wrap { bottom: 58px !important; right: 12px !important; }
+      #pan21-nl-btn, #pan21-sup-btn { padding: 7px 12px !important; font-size: 12px !important; }
+      #pan21-sup-card { max-height: calc(100vh - 140px) !important; }
+      #pan21-nl-wrap, #pan21-sup-wrap { transition: opacity .2s ease, visibility .2s ease; }
+      body.p21-hero-visible #pan21-nl-wrap, body.p21-hero-visible #pan21-sup-wrap { opacity: 0; visibility: hidden; }
+    }
   </style>
 <!-- Matomo -->
 <script>
@@ -439,7 +450,7 @@ var sc_security="c23814a1";
       <div class="step">
         <div class="step-num">3</div>
         <h3>Start counting</h3>
-        <p>That's it. The badge shows your pageviews and unique visitors, and your public stats page is live immediately.</p>
+        <p>That's it. The badge shows your pageviews, and your public stats page — live immediately — adds your unique visitors.</p>
       </div>
     </div>
 
@@ -447,9 +458,9 @@ var sc_security="c23814a1";
       <div style="font-size:.85rem;font-weight:600;color:var(--navy);margin-bottom:.5rem;">Your embed code (2 lines of HTML):</div>
       <div class="code-box" style="position:relative">
         <button class="copy-btn" onclick="copyCode(this, 'embed')">Copy</button>
-        <span id="embed">&lt;div id="pan21counter"&gt;&lt;/div&gt;<br>&lt;script src="https://pan21counter.de/c.js?id=<em style="color:#ffd700">YOUR-ID</em>" async&gt;&lt;/script&gt;</span>
+        <span id="embed">&lt;div id="pan21counter"&gt;&lt;/div&gt;<br>&lt;script src="https://www.pan21counter.de/c.js?id=<em style="color:#ffd700">YOUR-ID</em>" async&gt;&lt;/script&gt;</span>
       </div>
-      <p style="font-size:.82rem;color:var(--slate)">Optional: add <code>&amp;style=dark</code> or <code>&amp;style=minimal</code> for a different badge style.</p>
+      <p style="font-size:.82rem;color:var(--slate)">The badge design is picked automatically based on your rank in the top list: top 10, top 100, or compact from rank 101.</p>
     </div>
   </div>
 </section>
@@ -464,7 +475,7 @@ var sc_security="c23814a1";
     <div class="features">
       <div class="feat">
         <h4>📊 Pageviews</h4>
-        <p>Every page view is counted — bots and crawlers are filtered out automatically.</p>
+        <p>Every page view is counted — bots and crawlers are filtered out automatically, and rapid repeat views (within 30 seconds) count once.</p>
       </div>
       <div class="feat">
         <h4>👤 Unique visitors</h4>
@@ -476,11 +487,11 @@ var sc_security="c23814a1";
       </div>
       <div class="feat">
         <h4>🔢 All-time totals</h4>
-        <p>Cumulative pageviews and unique visitors since you added the counter — right in the badge.</p>
+        <p>Cumulative pageviews since you added the counter, right in the badge — total unique visitors on your stats page.</p>
       </div>
       <div class="feat">
-        <h4>🎨 3 badge styles</h4>
-        <p>Classic (light), Dark and Minimal (text only) — to match any design.</p>
+        <h4>🎨 3 badge designs</h4>
+        <p>Dark for the top 10, light for the top 100, compact from rank 101 — chosen automatically by your rank in the top list.</p>
       </div>
       <div class="feat">
         <h4>🔒 Privacy-compliant</h4>
@@ -518,7 +529,7 @@ var sc_security="c23814a1";
   <div class="container">
     <div class="section-eyebrow">Public statistics</div>
     <h2 class="section-title">Show your visitors what's going on</h2>
-    <p class="section-lead">Every registered website gets a public stats page at <strong>pan21counter.de/stats/YOUR-ID</strong>. No login required — just share the link or add it to your website.</p>
+    <p class="section-lead">Every registered website gets a public stats page at <strong>www.pan21counter.de/en/stats/YOUR-ID</strong>. No login required — just share the link or add it to your website.</p>
     <div class="features" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))">
       <div class="feat">
         <h4>Easy to link</h4>
@@ -625,7 +636,7 @@ var sc_security="c23814a1";
       <div class="faq-q" onclick="toggleFaq(this)">
         Is there an API? <span class="faq-arrow">▾</span>
       </div>
-      <div class="faq-a">Yes. You can fetch your statistics as JSON from <code>https://pan21counter.de/api/stats-public?id=YOUR-ID</code> — for your own integrations, dashboards or displays.</div>
+      <div class="faq-a">Yes. You can fetch your statistics as JSON from <code>https://www.pan21counter.de/api/stats-public?id=YOUR-ID</code> — for your own integrations, dashboards or displays.</div>
     </div>
   </div>
 </section>
@@ -778,6 +789,18 @@ var sc_security="c23814a1";
     });
   })();
 
+  // Mobile: hide the floating buttons until the hero CTA has scrolled out of view
+  (function() {
+    const cta = document.querySelector('.hero-cta');
+    if (!cta) return;
+    function update() {
+      document.body.classList.toggle('p21-hero-visible', cta.getBoundingClientRect().bottom > 0);
+    }
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+  })();
+
   // FAQ toggle
   function toggleFaq(el) {
     const item = el.closest('.faq-item');
@@ -839,8 +862,8 @@ var sc_security="c23814a1";
       const data = await res.json();
       if (res.ok && data.ok) {
         const siteId = data.site_id;
-        const embedCode = '<div id="pan21counter"></div>\n<script src="https://pan21counter.de/c.js?id=' + siteId + '" async><\/script>';
-        const statsUrl = 'https://pan21counter.de/en/stats/' + siteId;
+        const embedCode = '<div id="pan21counter"></div>\n<script src="https://www.pan21counter.de/c.js?id=' + siteId + '" async><\/script>';
+        const statsUrl = 'https://www.pan21counter.de/en/stats/' + siteId + '/';
 
         msg.className = 'form-msg success';
         msg.innerHTML = `
@@ -1119,7 +1142,7 @@ new MutationObserver(pan21SupApplyLang).observe(document.documentElement, { attr
 
       <div style="background:#F7F5F1;border-radius:8px;padding:12px 14px;">
         <div style="font-size:.72rem;font-weight:700;color:#0B1F3A;margin-bottom:4px;" class="pan21-sup-i18n" data-p21supde="&#8505;&#65039; Gut zu wissen" data-p21supen="&#8505;&#65039; Good to know">&#8505;&#65039; Good to know</div>
-        <div style="font-size:.74rem;color:#5a6a7e;line-height:1.55;" class="pan21-sup-i18n" data-p21supde="Der Sprachanruf im Browser verbindet Sie technisch mit derselben Hotline wie ein Anruf unter +49 30 568 44 500 &mdash; nur direkt aus dem Browser, weltweit, ohne Auslandsgebühren. Mikrofon/Lautsprecher genügen, kein Telefon nötig." data-p21supen="The in-browser voice call technically connects you to the same hotline as calling +49 30 568 44 500 &mdash; just directly from your browser, worldwide, with no international fees. A microphone/speakers is all you need, no phone required.">The in-browser voice call technically connects you to the same hotline as calling +49 30 568 44 500 &mdash; just directly from your browser, worldwide, with no international fees. A microphone/speakers is all you need, no phone required.</div>
+        <div style="font-size:.74rem;color:#5a6a7e;line-height:1.55;" class="pan21-sup-i18n" data-p21supde="Der Sprachanruf im Browser verbindet Sie technisch mit derselben Hotline wie ein Anruf unter +49 30 568 44 500 &mdash; nur direkt aus dem Browser, weltweit, ohne Auslandsgebühren. Mikrofon/Lautsprecher genügen, kein Telefon nötig." data-p21supen="The in-browser voice call technically connects you to the same hotline as calling +49 30 568 44 500 &mdash; just directly from your browser, worldwide, with no international fees. A microphone and speakers are all you need — no phone required.">The in-browser voice call technically connects you to the same hotline as calling +49 30 568 44 500 &mdash; just directly from your browser, worldwide, with no international fees. A microphone and speakers are all you need — no phone required.</div>
       </div>
 
     </div>

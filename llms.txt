@@ -11,14 +11,14 @@ PAN21 Counter ist ein gratis Website-Zähler-Service. Websitebetreiber können s
 - Öffentliche Statistikseite pro Website (30-Tage-Verlauf)
 - Datenschutzkonform: keine Cookies, IP-Hash-only
 - Bot-Filterung
-- Badge in 3 Stilen: classic, dark, minimal
+- Badge in 3 Designs, automatisch nach Toplist-Rang (Top 10, Top 100, ab Platz 101)
 - JSON-API für Statistikdaten
 
 ## Einbindung
 
 ```html
 <div id="pan21counter"></div>
-<script src="https://pan21counter.de/c.js?id=SITE-ID" async></script>
+<script src="https://www.pan21counter.de/c.js?id=SITE-ID" async></script>
 ```
 
 ## Technologie

@@ -105,10 +105,10 @@ async function buildToolsFooterHtml(excludeSlug, lang = 'de') {
 }
 
 async function sendConfirmationEmail(email, url, sitename, siteId, lang = 'de') {
-  const embedCode = `<div id="pan21counter"></div>\n<script src="https://pan21counter.de/c.js?id=${siteId}" async></script>`;
+  const embedCode = `<div id="pan21counter"></div>\n<script src="https://www.pan21counter.de/c.js?id=${siteId}" async></script>`;
   const statsUrl = lang === 'en'
-    ? `https://pan21counter.de/en/stats/${siteId}`
-    : `https://pan21counter.de/stats/${siteId}`;
+    ? `https://www.pan21counter.de/en/stats/${siteId}/`
+    : `https://www.pan21counter.de/stats/${siteId}/`;
   const toolsFooter = await buildToolsFooterHtml('pan21counter', lang);
   const codeHtml = embedCode.replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
@@ -131,7 +131,7 @@ async function sendConfirmationEmail(email, url, sitename, siteId, lang = 'de') 
     <p style="font-size:14px"><a href="${statsUrl}" style="color:#b8860b">${statsUrl}</a></p>
 
     <p style="font-size:13px;color:#6b7ca0;margin-top:20px">Your counter ID: <strong>${siteId}</strong><br>
-    Optional: style parameter <code>?id=${siteId}&style=dark</code> or <code>&style=minimal</code></p>
+    The badge design is picked automatically based on your rank in the top list.</p>
     ${toolsFooter}
   </div>
   <div style="padding:12px 24px;background:#e8ecf2;font-size:11px;color:#6b7ca0">
@@ -152,7 +152,7 @@ async function sendConfirmationEmail(email, url, sitename, siteId, lang = 'de') 
     <p style="font-size:14px"><a href="${statsUrl}" style="color:#b8860b">${statsUrl}</a></p>
 
     <p style="font-size:13px;color:#6b7ca0;margin-top:20px">Ihre Zähler-ID: <strong>${siteId}</strong><br>
-    Optional: Style-Parameter <code>?id=${siteId}&style=dark</code> oder <code>&style=minimal</code></p>
+    Das Badge-Design wählt sich automatisch nach Ihrem Rang in der Toplist.</p>
     ${toolsFooter}
   </div>
   <div style="padding:12px 24px;background:#e8ecf2;font-size:11px;color:#6b7ca0">

@@ -75,7 +75,7 @@
 <nav>
   <a href="/" class="nav-logo">PAN21 <span>Counter</span></a>
   <div class="nav-right">
-    <a href="/plus.html" style="color:#d4a017;font-weight:700;">✨ Plus</a>
+    <a href="/plus/" style="color:#d4a017;font-weight:700;">✨ Plus</a>
     <a href="/" class="back-link">← Startseite</a>
     <div class="lang-switch" role="navigation" aria-label="Sprache"><span class="active" aria-current="page" lang="de">DE</span><span class="sep">|</span><a href="/en/" id="langEn" hreflang="en" lang="en" title="English version">EN</a></div>
   </div>
@@ -113,15 +113,14 @@
 
   <div class="card" id="badgeCard" style="display:none">
     <div class="badge-preview">
-      <h4>Badge-Stile</h4>
-      <div id="badgeClassic" class="b-classic"></div>
-      <div id="badgeDark" class="b-dark"></div>
-      <div id="badgeMinimal" class="b-minimal"></div>
+      <h4>Ihr Badge</h4>
+      <img id="badgeImg" alt="PAN21 Counter Badge" style="max-width:100%;height:auto;display:block">
     </div>
   </div>
 
   <div class="powered">
-    Powered by <a href="/">PAN21 Counter</a> — Kostenloser Besucherzähler
+    Powered by <a href="/">PAN21 Counter</a> — Kostenloser Besucherzähler<br>
+    <a href="/impressum.html">Impressum</a> &nbsp;·&nbsp; <a href="/datenschutz.html">Datenschutz</a>
   </div>
 </main>
 
@@ -136,7 +135,7 @@
     document.getElementById('langEn').href = '/en/stats/' + encodeURIComponent(siteId) + '/';
   }
 
-  if (!siteId) {
+  if (!siteId || siteId === 'stats') {
     document.getElementById('loadingEl').innerHTML = '<div class="error-msg">Keine Zähler-ID angegeben.</div>';
     return;
   }
@@ -145,6 +144,7 @@
     const res = await fetch('/api/stats-public?id=' + siteId);
     if (!res.ok) throw new Error('Nicht gefunden');
     const data = await res.json();
+    if (!data.sitename && !data.url) throw new Error('Nicht gefunden');
 
     // Header ausblenden
     document.getElementById('loadingEl').style.display = 'none';
@@ -202,16 +202,8 @@
       }
     });
 
-    // Badges
-    const views = (data.total_views || 0).toLocaleString('de-DE');
-    const unique = (data.total_unique || 0).toLocaleString('de-DE');
-    const svgBars = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>';
-    const svgUser = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>';
-    const inner = svgBars + '<span>' + views + '</span><span style="opacity:.4">|</span>' + svgUser + '<span>' + unique + '</span>';
-
-    document.getElementById('badgeClassic').innerHTML = inner;
-    document.getElementById('badgeDark').innerHTML = inner;
-    document.getElementById('badgeMinimal').innerHTML = inner;
+    // Badge (dasselbe Bild wie auf der Website, Design nach Toplist-Rang)
+    document.getElementById('badgeImg').src = '/badge/' + encodeURIComponent(siteId);
 
   } catch (e) {
     document.getElementById('loadingEl').innerHTML = '<div class="error-msg">Statistik nicht gefunden. Bitte prüfen Sie die Zähler-ID.</div>';

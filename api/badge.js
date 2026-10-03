@@ -86,15 +86,36 @@ export default async function handler(req, res) {
   let rank  = 999;
 
   if (id) {
+    // Gesamtzahl seit Einbindung = Summe aller Tageswerte (pc_hits enthält nur die
+    // noch nicht archivierten Einzel-Hits); seitenweise, da PostgREST max. 1000 Zeilen liefert
     const { data } = await supabase.rpc('get_site_stats', { p_site_id: id });
-    views = data?.[0]?.total_views || 0;
+    const hitViews = Number(data?.[0]?.total_views) || 0;
+    let sumViews = 0;
+    for (let from = 0; from < 100000; from += 1000) {
+      const { data: rows, error } = await supabase
+        .from('pc_daily_stats')
+        .select('date, total_hits')
+        .eq('site_id', id)
+        .order('date', { ascending: true })
+        .range(from, from + 999);
+      if (error || !rows) break;
+      rows.forEach(r => { sumViews += Number(r.total_hits) || 0; });
+      if (rows.length < 1000) break;
+    }
+    views = Math.max(sumViews, hitViews);
 
-    const { data: allHits } = await supabase.from('pc_hits').select('site_id');
-    if (allHits) {
-      const counts = {};
-      allHits.forEach(r => { counts[r.site_id] = (counts[r.site_id] || 0) + 1; });
-      const myViews = counts[id] || 0;
-      rank = Object.values(counts).filter(v => v > myViews).length + 1;
+    // Rang wie in der Toplist: nach Pageviews des heutigen Tages
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const { data: today } = await supabase
+      .from('pc_daily_stats')
+      .select('site_id, total_hits')
+      .eq('date', todayStr);
+    if (today) {
+      const mine = today.find(r => r.site_id === id);
+      const myToday = mine ? Number(mine.total_hits) || 0 : 0;
+      if (myToday > 0) {
+        rank = today.filter(r => (Number(r.total_hits) || 0) > myToday).length + 1;
+      }
     }
   }
 

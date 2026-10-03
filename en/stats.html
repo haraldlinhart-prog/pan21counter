@@ -110,10 +110,8 @@
 
   <div class="card" id="badgeCard" style="display:none">
     <div class="badge-preview">
-      <h4>Badge styles</h4>
-      <div id="badgeClassic" class="b-classic"></div>
-      <div id="badgeDark" class="b-dark"></div>
-      <div id="badgeMinimal" class="b-minimal"></div>
+      <h4>Your badge</h4>
+      <img id="badgeImg" alt="PAN21 Counter badge" style="max-width:100%;height:auto;display:block">
     </div>
   </div>
 
@@ -143,6 +141,7 @@
     const res = await fetch('/api/stats-public?id=' + siteId);
     if (!res.ok) throw new Error('Not found');
     const data = await res.json();
+    if (!data.sitename && !data.url) throw new Error('Not found');
 
     document.getElementById('loadingEl').style.display = 'none';
     document.getElementById('content').style.display = 'block';
@@ -200,16 +199,8 @@
       }
     });
 
-    // Badges
-    const views = (data.total_views || 0).toLocaleString('en-US');
-    const unique = (data.total_unique || 0).toLocaleString('en-US');
-    const svgBars = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>';
-    const svgUser = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>';
-    const inner = svgBars + '<span>' + views + '</span><span style="opacity:.4">|</span>' + svgUser + '<span>' + unique + '</span>';
-
-    document.getElementById('badgeClassic').innerHTML = inner;
-    document.getElementById('badgeDark').innerHTML = inner;
-    document.getElementById('badgeMinimal').innerHTML = inner;
+    // Badge (the same image as on the website, design based on top-list rank)
+    document.getElementById('badgeImg').src = '/badge/' + encodeURIComponent(siteId);
 
   } catch (e) {
     document.getElementById('loadingEl').innerHTML = '<div class="error-msg">Statistics not found. Please check your counter ID.</div>';

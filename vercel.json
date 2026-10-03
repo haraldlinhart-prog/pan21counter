@@ -14,11 +14,11 @@
     },
     {
       "source": "/stats/:id",
-      "destination": "/stats.html"
+      "destination": "/stats"
     },
     {
       "source": "/en/stats/:id",
-      "destination": "/en/stats.html"
+      "destination": "/en/stats"
     },
     {
       "source": "/en/toplist",

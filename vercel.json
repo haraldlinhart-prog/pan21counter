@@ -9,16 +9,32 @@
       "destination": "/api/track.js"
     },
     {
+      "source": "/track/",
+      "destination": "/api/track.js"
+    },
+    {
       "source": "/register",
       "destination": "/api/register.js"
     },
     {
+      "source": "/register/",
+      "destination": "/api/register.js"
+    },
+    {
+      "source": "/stats/:id",
+      "destination": "/stats"
+    },
+    {
       "source": "/stats/:id/",
-      "destination": "/stats.html"
+      "destination": "/stats"
+    },
+    {
+      "source": "/en/stats/:id",
+      "destination": "/en/stats"
     },
     {
       "source": "/en/stats/:id/",
-      "destination": "/en/stats.html"
+      "destination": "/en/stats"
     },
     {
       "source": "/en/toplist",
@@ -26,6 +42,10 @@
     },
     {
       "source": "/badge/:id",
+      "destination": "/api/badge.js"
+    },
+    {
+      "source": "/badge/:id/",
       "destination": "/api/badge.js"
     },
     {
@@ -69,7 +89,7 @@
       ]
     },
     {
-      "source": "/badge/:id",
+      "source": "/badge/:id(.*)",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",

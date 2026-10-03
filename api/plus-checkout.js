@@ -13,12 +13,13 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
   const { site_id, email } = req.body;
+  const en = req.body?.lang === 'en';
   if (!site_id || !email || !email.includes('@')) {
-    return res.status(400).json({ error: 'site_id und gültige E-Mail erforderlich' });
+    return res.status(400).json({ error: en ? 'Please enter your site ID and a valid email address' : 'site_id und gültige E-Mail erforderlich' });
   }
 
   const { data: site } = await supabase.from('pc_sites').select('site_id').eq('site_id', site_id).single();
-  if (!site) return res.status(404).json({ error: 'Site nicht gefunden' });
+  if (!site) return res.status(404).json({ error: en ? 'Site not found. Please check your site ID.' : 'Site nicht gefunden' });
 
   const session = await stripe.checkout.sessions.create({
     mode: 'subscription',
@@ -37,8 +38,8 @@ export default async function handler(req, res) {
       quantity: 1,
     }],
     metadata: { product: 'pan21counter', site_id, email },
-    success_url: 'https://pan21counter.de/plus.html?success=1&site=' + site_id,
-    cancel_url: 'https://pan21counter.de/plus.html?cancelled=1',
+    success_url: 'https://pan21counter.de/' + (en ? 'en/' : '') + 'plus.html?success=1&site=' + site_id,
+    cancel_url: 'https://pan21counter.de/' + (en ? 'en/' : '') + 'plus.html?cancelled=1',
   });
 
   await supabase.from('pc_plus_subscribers').upsert(

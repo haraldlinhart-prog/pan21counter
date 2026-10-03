@@ -1,27 +1,33 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PAN21counter Plus — 365-Tage-Historie &amp; Wochenreport</title>
-<meta name="description" content="PAN21counter Plus: 365-Tage-Statistik-Historie, wöchentlicher E-Mail-Report, Badge ohne Branding. Ab €0,99/Monat.">
-<link rel="canonical" href="https://pan21counter.de/plus.html">
+<title>PAN21counter Plus — 365-Day History &amp; Weekly Report</title>
+<meta name="description" content="PAN21counter Plus: a 365-day statistics history, a weekly email report and a badge without branding. From €0.99/month.">
+<link rel="canonical" href="https://www.pan21counter.de/en/plus/">
 <link rel="alternate" hreflang="de" href="https://www.pan21counter.de/plus/">
 <link rel="alternate" hreflang="en" href="https://www.pan21counter.de/en/plus/">
 <link rel="alternate" hreflang="x-default" href="https://www.pan21counter.de/plus/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="PAN21counter Plus — 365-Day History &amp; Weekly Report">
+<meta property="og:description" content="More insight into your visitor numbers: 365-day history, weekly email report, unbranded badge. From €0.99/month.">
+<meta property="og:url" content="https://www.pan21counter.de/en/plus/">
+<meta property="og:site_name" content="PAN21 Counter">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <style>
   :root{--navy:#0f2447;--blue:#3aa0ff;--green:#7ed321;--red:#ff4e42;--gold:#c9963a;--ink:#1a2530;--slate:#6b7ca0;--bg:#f5f7fa;--radius:6px}
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   body{font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
   nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 24px;background:var(--navy)}
+  nav a{color:#fff;text-decoration:none;font-weight:700}
   .nav-right{display:flex;align-items:center;gap:16px}
-  /* LANGUAGE SWITCH */
-  .lang-switch{display:flex;align-items:center;gap:.15rem;font-size:.8rem;font-weight:700;letter-spacing:.04em;flex-shrink:0}
+  .lang-switch{display:flex;align-items:center;gap:.15rem;font-size:.8rem;font-weight:700;letter-spacing:.04em}
   .lang-switch a,.lang-switch span{padding:.2rem .45rem;border-radius:4px;text-decoration:none;color:rgba(255,255,255,.75)}
   .lang-switch a:hover{color:#d4a017}
   .lang-switch .active{background:#d4a017;color:#0d1f3c}
   .lang-switch .sep{color:rgba(255,255,255,.35);padding:0}
-  nav a{color:#fff;text-decoration:none;font-weight:700}
   .wrap{max-width:680px;margin:0 auto;padding:48px 24px}
   .hero{background:linear-gradient(135deg,var(--navy),#1c3a63);color:#fff;border-radius:12px;padding:40px 32px;text-align:center;margin-bottom:32px}
   .hero h1{font-size:2rem;margin-bottom:12px}
@@ -54,61 +60,74 @@
   .europan-note a{color:var(--gold);font-weight:700;text-decoration:none}
   #pin-row{position:relative}
   #pin-field{width:100px}
-  @media(max-width:480px){nav{padding:14px 16px}.wrap{padding:28px 16px}.hero{padding:32px 20px}.hero h1{font-size:1.6rem}.features,.paycard{padding:22px 18px}}
+  footer{text-align:center;font-size:.78rem;color:var(--slate);padding:0 24px 40px}
+  footer a{color:var(--slate)}
+  @media(max-width:480px){
+    nav{padding:14px 16px}
+    .wrap{padding:28px 16px}
+    .hero{padding:32px 20px}
+    .hero h1{font-size:1.6rem}
+    .features,.paycard{padding:22px 18px}
+  }
 </style>
 </head>
 <body>
-<nav><a href="/">PAN21counter</a><div class="nav-right"><a href="/toplist">Top 10</a><div class="lang-switch" role="navigation" aria-label="Sprache"><span class="active" aria-current="page" lang="de">DE</span><span class="sep">|</span><a href="/en/plus/" hreflang="en" lang="en" title="English version">EN</a></div></div></nav>
+<nav><a href="/en/">PAN21counter</a><div class="nav-right"><a href="/en/toplist/">Top 10</a><div class="lang-switch" role="navigation" aria-label="Language"><a href="/plus/" hreflang="de" lang="de" title="Deutsche Version">DE</a><span class="sep">|</span><span class="active" aria-current="page" lang="en">EN</span></div></div></nav>
 <div class="wrap">
   <div class="hero">
     <h1>PAN21counter Plus</h1>
-    <p>Mehr Einblick in Ihre Besucherzahlen — für Websites, die es genauer wissen wollen.</p>
-    <div class="price">€0,99<span>/Monat</span></div>
+    <p>Deeper insight into your visitor numbers — for websites that want to know more.</p>
+    <div class="price">€0.99<span>/month</span></div>
   </div>
   <div class="features">
     <ul>
-      <li>365-Tage-Statistik-Historie statt 30 Tage</li>
-      <li>Wöchentlicher E-Mail-Report</li>
-      <li>Badge ohne PAN21counter-Branding</li>
-      <li>Jederzeit monatlich kündbar</li>
+      <li>365-day statistics history instead of 30 days</li>
+      <li>Weekly email report</li>
+      <li>Badge without PAN21counter branding</li>
+      <li>Cancel any time, month to month</li>
     </ul>
   </div>
   <div class="paycard">
     <div class="tabs">
-      <div class="tab active" id="tab-stripe" onclick="selectMethod('stripe')">💳 Kreditkarte</div>
-      <div class="tab" id="tab-europan" onclick="selectMethod('europan')">🪙 EUROPAN-Guthaben</div>
+      <div class="tab active" id="tab-stripe" onclick="selectMethod('stripe')">💳 Credit card</div>
+      <div class="tab" id="tab-europan" onclick="selectMethod('europan')">🪙 EUROPAN credit</div>
     </div>
     <form id="plus-form">
-      <label for="site_id">Ihre Site-ID</label>
-      <input type="text" id="site_id" placeholder="z.B. A3F9B2" required>
-      <label for="email">E-Mail-Adresse</label>
-      <input type="email" id="email" placeholder="ihre@email.de" required>
+      <label for="site_id">Your site ID</label>
+      <input type="text" id="site_id" placeholder="e.g. A3F9B2" required>
+      <label for="email">Email address</label>
+      <input type="email" id="email" placeholder="you@example.com" required>
 
       <div id="europan-fields">
         <label for="pin-field">PIN</label>
-        <input type="password" id="pin-field" inputmode="numeric" maxlength="4" placeholder="4-stellig">
+        <input type="password" id="pin-field" inputmode="numeric" maxlength="4" placeholder="4 digits">
         <div class="bonus-choice">
-          <label><input type="radio" name="bonus" value="now" checked> EUROPAN-Bonus (2%) jetzt einsetzen</label>
-          <label><input type="radio" name="bonus" value="save"> Als EUROPAN-Guthaben sparen</label>
+          <label><input type="radio" name="bonus" value="now" checked> Apply my EUROPAN bonus (2%) now</label>
+          <label><input type="radio" name="bonus" value="save"> Save it as EUROPAN credit</label>
         </div>
-        <p class="europan-note">Reicht Ihr Guthaben, um den vollen Betrag zu decken, erhalten Sie zusätzlich den Doppel-Wums-Bonus (3%). Noch kein Guthaben? <a href="https://europan.group/buy" target="_blank" rel="noopener">Jetzt kaufen →</a></p>
+        <p class="europan-note">If your credit covers the full amount, you also get the Doppel-Wums bonus (3%). No credit yet? <a href="https://europan.group/buy" target="_blank" rel="noopener">Buy now →</a></p>
       </div>
 
-      <button type="submit" id="submit-btn">Jetzt upgraden — €0,99/Monat</button>
+      <button type="submit" id="submit-btn">Upgrade now — €0.99/month</button>
       <div class="msg" id="msg"></div>
     </form>
   </div>
-  <p class="hint">Ihre Site-ID finden Sie in der Bestätigungs-E-Mail nach der Registrierung, oder in der URL Ihrer Statistikseite.</p>
+  <p class="hint">You'll find your site ID in the confirmation email you received after signing up, or in the URL of your stats page.</p>
 </div>
+<footer>
+  <a href="/impressum.html" hreflang="de">Legal notice</a> &nbsp;·&nbsp; <a href="/datenschutz.html" hreflang="de">Privacy policy (German)</a>
+</footer>
 <script>
 let paymentMethod = 'stripe';
+const LABEL_STRIPE = 'Upgrade now — €0.99/month';
+const LABEL_EUROPAN = 'Pay now with EUROPAN';
 function selectMethod(m) {
   paymentMethod = m;
   document.getElementById('tab-stripe').classList.toggle('active', m === 'stripe');
   document.getElementById('tab-europan').classList.toggle('active', m === 'europan');
   document.getElementById('europan-fields').style.display = m === 'europan' ? 'block' : 'none';
   document.getElementById('pin-field').required = m === 'europan';
-  document.getElementById('submit-btn').textContent = m === 'europan' ? 'Jetzt mit EUROPAN bezahlen' : 'Jetzt upgraden — €0,99/Monat';
+  document.getElementById('submit-btn').textContent = m === 'europan' ? LABEL_EUROPAN : LABEL_STRIPE;
 }
 
 document.getElementById('plus-form').addEventListener('submit', async function(e){
@@ -116,7 +135,7 @@ document.getElementById('plus-form').addEventListener('submit', async function(e
   const btn = document.getElementById('submit-btn');
   const msg = document.getElementById('msg');
   msg.className='msg'; msg.textContent='';
-  btn.disabled = true; btn.textContent = 'Einen Moment …';
+  btn.disabled = true; btn.textContent = 'One moment …';
   const site_id = document.getElementById("site_id").value.trim();
   const email = document.getElementById('email').value.trim();
 
@@ -124,40 +143,40 @@ document.getElementById('plus-form').addEventListener('submit', async function(e
     if (paymentMethod === 'stripe') {
       const res = await fetch('/api/plus-checkout', {
         method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ site_id, email })
+        body: JSON.stringify({ site_id, email, lang: 'en' })
       });
       const data = await res.json();
       if (res.ok && data.url) { window.location.href = data.url; return; }
-      msg.className='msg error'; msg.textContent = data.error || 'Das hat leider nicht funktioniert.';
+      msg.className='msg error'; msg.textContent = data.error || 'Sorry, that didn\'t work.';
     } else {
       const pin = document.getElementById('pin-field').value.trim();
       const bonusChoice = document.querySelector('input[name="bonus"]:checked').value;
       const res = await fetch('/api/europan-pay', {
         method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ badge_key: site_id, email, pin, bonusChoice })
+        body: JSON.stringify({ badge_key: site_id, email, pin, bonusChoice, lang: 'en' })
       });
       const data = await res.json();
       if (res.ok && data.ok) {
         msg.className='msg ok';
-        msg.textContent = '✓ Bezahlt mit EUROPAN! Plus-Statistiken sind sofort aktiv.' + (data.warning ? ' (' + data.warning + ')' : '');
+        msg.textContent = '✓ Paid with EUROPAN! Your Plus statistics are active right away.' + (data.warning ? ' (' + data.warning + ')' : '');
         document.getElementById('plus-form').reset();
       } else {
-        msg.className='msg error'; msg.textContent = data.error || 'Zahlung fehlgeschlagen.';
+        msg.className='msg error'; msg.textContent = data.error || 'Payment failed.';
       }
     }
   } catch(err) {
-    msg.className='msg error'; msg.textContent='Verbindungsfehler. Bitte versuchen Sie es erneut.';
+    msg.className='msg error'; msg.textContent='Connection error. Please try again.';
   } finally {
     btn.disabled=false;
-    btn.textContent = paymentMethod === 'europan' ? 'Jetzt mit EUROPAN bezahlen' : 'Jetzt upgraden — €0,99/Monat';
+    btn.textContent = paymentMethod === 'europan' ? LABEL_EUROPAN : LABEL_STRIPE;
   }
 });
 const params = new URLSearchParams(window.location.search);
 if (params.get('success')) {
-  document.querySelector('.wrap').insertAdjacentHTML('afterbegin','<div class="msg ok" style="display:block;margin-bottom:20px;">✓ Zahlung erfolgreich! Plus-Statistiken sind sofort aktiv.</div>');
+  document.querySelector('.wrap').insertAdjacentHTML('afterbegin','<div class="msg ok" style="display:block;margin-bottom:20px;">✓ Payment successful! Your Plus statistics are active right away.</div>');
 }
 if (params.get('cancelled')) {
-  document.querySelector('.wrap').insertAdjacentHTML('afterbegin','<div class="msg error" style="display:block;margin-bottom:20px;">Zahlung abgebrochen.</div>');
+  document.querySelector('.wrap').insertAdjacentHTML('afterbegin','<div class="msg error" style="display:block;margin-bottom:20px;">Payment cancelled.</div>');
 }
 </script>
 </body>

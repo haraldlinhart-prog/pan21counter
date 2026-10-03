@@ -14,6 +14,13 @@
     .nav-logo span{color:var(--gold-lt)}
     .back-link{color:rgba(255,255,255,.7);font-size:.85rem;text-decoration:none}
     .back-link:hover{color:var(--gold-lt)}
+    .nav-right{display:flex;align-items:center;gap:1rem}
+    /* LANGUAGE SWITCH */
+    .lang-switch{display:flex;align-items:center;gap:.15rem;font-size:.8rem;font-weight:700;letter-spacing:.04em;flex-shrink:0}
+    .lang-switch a,.lang-switch span{padding:.2rem .45rem;border-radius:4px;text-decoration:none;color:rgba(255,255,255,.75)}
+    .lang-switch a:hover{color:#d4a017}
+    .lang-switch .active{background:#d4a017;color:#0d1f3c}
+    .lang-switch .sep{color:rgba(255,255,255,.35);padding:0}
     main{max-width:720px;margin:3rem auto;padding:0 1.5rem 4rem}
     h1{font-family:var(--ff-d);font-size:1.8rem;font-weight:700;color:var(--navy);margin-bottom:2rem;padding-bottom:1rem;border-bottom:2px solid var(--gold)}
     h2{font-family:var(--ff-d);font-size:1.1rem;font-weight:700;color:var(--navy);margin:1.5rem 0 .5rem}
@@ -41,7 +48,10 @@
 <body>
 <nav>
   <a href="/" class="nav-logo">PAN21 <span>Counter</span></a>
-  <a href="/" class="back-link">← Startseite</a>
+  <div class="nav-right">
+    <a href="/" class="back-link">← Startseite</a>
+    <div class="lang-switch" role="navigation" aria-label="Sprache"><span class="active" aria-current="page" lang="de">DE</span><span class="sep">|</span><a href="/en/" hreflang="en" lang="en" title="English version">EN</a></div>
+  </div>
 </nav>
 <main>
   <h1>Datenschutzerklärung</h1>

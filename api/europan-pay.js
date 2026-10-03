@@ -20,13 +20,14 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).end();
 
+  const en = req.body?.lang === 'en';
   try {
     const { badge_key, email, pin, bonusChoice } = req.body || {};
     if (!badge_key || !email || !pin) {
-      return res.status(400).json({ error: 'Badge-Key, E-Mail und PIN erforderlich' });
+      return res.status(400).json({ error: en ? 'Site ID, email and PIN are required' : 'Badge-Key, E-Mail und PIN erforderlich' });
     }
     if (!/^\d{4}$/.test(pin)) {
-      return res.status(400).json({ error: 'PIN (4-stellig) erforderlich' });
+      return res.status(400).json({ error: en ? 'Please enter your 4-digit PIN' : 'PIN (4-stellig) erforderlich' });
     }
     if (!NOBLE_API_KEY || !INTERNAL_ACTIVATE_SECRET) {
       return res.status(500).json({ error: 'Not configured' });
@@ -34,7 +35,7 @@ export default async function handler(req, res) {
 
     const { data: sites } = await supabase.from('pc_sites').select('id').eq('site_id', badge_key).limit(1);
     if (!sites || sites.length === 0) {
-      return res.status(404).json({ error: 'Website nicht gefunden' });
+      return res.status(404).json({ error: en ? 'Website not found' : 'Website nicht gefunden' });
     }
     const siteId = badge_key; // pc_sites nutzt die Site-ID selbst als Schlüssel für pc_plus_subscribers
 
@@ -44,9 +45,9 @@ export default async function handler(req, res) {
       headers: { Authorization: `Bearer ${NOBLE_API_KEY}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email.toLowerCase(), pin, coin_id: 'europan' }),
     });
-    if (verifyRes.status === 404) return res.status(404).json({ error: 'Kein EUROPAN-Guthaben für diese E-Mail gefunden.' });
-    if (verifyRes.status === 401) return res.status(401).json({ error: 'Falsche PIN.' });
-    if (verifyRes.status === 429) return res.status(429).json({ error: 'Zu viele falsche Versuche — bitte später erneut versuchen.' });
+    if (verifyRes.status === 404) return res.status(404).json({ error: en ? 'No EUROPAN credit found for this email address.' : 'Kein EUROPAN-Guthaben für diese E-Mail gefunden.' });
+    if (verifyRes.status === 401) return res.status(401).json({ error: en ? 'Incorrect PIN.' : 'Falsche PIN.' });
+    if (verifyRes.status === 429) return res.status(429).json({ error: en ? 'Too many failed attempts — please try again later.' : 'Zu viele falsche Versuche — bitte später erneut versuchen.' });
     if (!verifyRes.ok) return res.status(verifyRes.status).json({ error: 'Noble API error' });
 
     const verifyData = await verifyRes.json();
@@ -60,7 +61,7 @@ export default async function handler(req, res) {
     const fullyCovered = balance >= afterEuropanBonus;
     if (!fullyCovered) {
       return res.status(402).json({
-        error: 'Guthaben deckt den Betrag nicht vollständig — EUROPAN kann hier nur als vollständige Zahlung eingesetzt werden.',
+        error: en ? 'Your credit does not cover the full amount — EUROPAN can only be used here to pay in full.' : 'Guthaben deckt den Betrag nicht vollständig — EUROPAN kann hier nur als vollständige Zahlung eingesetzt werden.',
         balance,
         required: afterEuropanBonus,
       });
@@ -79,7 +80,7 @@ export default async function handler(req, res) {
     });
     if (!debitRes.ok) {
       const err = await debitRes.json().catch(() => ({}));
-      return res.status(debitRes.status).json({ error: err.error || 'Zahlung fehlgeschlagen' });
+      return res.status(debitRes.status).json({ error: err.error || (en ? 'Payment failed' : 'Zahlung fehlgeschlagen') });
     }
 
     // 4. Affiliate/Bonus-Gutschrift beim Anbieter (doppel_wums, da vollständig in EUROPAN bezahlt)
@@ -100,12 +101,12 @@ export default async function handler(req, res) {
     });
     if (!activateRes.ok) {
       console.error('Aktivierung fehlgeschlagen nach erfolgreicher Zahlung:', await activateRes.text());
-      return res.status(200).json({ ok: true, warning: 'Zahlung erfolgreich, Aktivierung verzögert sich — bitte kontaktieren Sie uns.' });
+      return res.status(200).json({ ok: true, warning: en ? 'Payment successful, but activation is delayed — please contact us.' : 'Zahlung erfolgreich, Aktivierung verzögert sich — bitte kontaktieren Sie uns.' });
     }
 
     res.status(200).json({ ok: true, amountCharged: amountToDebit, europanBonusApplied, doppelWumsBonus });
   } catch (err) {
     console.error('europan-pay error:', err);
-    res.status(500).json({ error: 'Unerwarteter Fehler' });
+    res.status(500).json({ error: en ? 'Unexpected error' : 'Unerwarteter Fehler' });
   }
 }

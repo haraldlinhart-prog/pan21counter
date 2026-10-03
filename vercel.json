@@ -17,6 +17,14 @@
       "destination": "/stats.html"
     },
     {
+      "source": "/en/stats/:id",
+      "destination": "/en/stats.html"
+    },
+    {
+      "source": "/en/toplist",
+      "destination": "/en/toplist.html"
+    },
+    {
       "source": "/badge/:id",
       "destination": "/api/badge.js"
     },

@@ -55,7 +55,8 @@ export default async function handler(req, res) {
     var el = document.getElementById('p21c-' + _p21id) || document.getElementById('pan21counter');
     if (!el) return;
 
-    fetch(_p21base + '/api/stats-public?id=' + _p21id)
+    // Mit Slash anfragen: ohne ihn leitet Vercel (trailingSlash) per 308 ohne CORS-Header um
+    fetch(_p21base + '/api/stats-public/?id=' + encodeURIComponent(_p21id))
       .then(function(r) { return r.json(); })
       .then(function(d) {
         var views = d.total_views || 0;

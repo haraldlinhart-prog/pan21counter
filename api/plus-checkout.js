@@ -6,7 +6,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // POST /api/plus-checkout  { site_id, email }
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://pan21counter.de');
+  res.setHeader('Access-Control-Allow-Origin', 'https://www.pan21counter.de');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
@@ -38,8 +38,8 @@ export default async function handler(req, res) {
       quantity: 1,
     }],
     metadata: { product: 'pan21counter', site_id, email },
-    success_url: 'https://pan21counter.de/' + (en ? 'en/' : '') + 'plus.html?success=1&site=' + site_id,
-    cancel_url: 'https://pan21counter.de/' + (en ? 'en/' : '') + 'plus.html?cancelled=1',
+    success_url: 'https://www.pan21counter.de/' + (en ? 'en/' : '') + 'plus/?success=1&site=' + site_id,
+    cancel_url: 'https://www.pan21counter.de/' + (en ? 'en/' : '') + 'plus/?cancelled=1',
   });
 
   await supabase.from('pc_plus_subscribers').upsert(

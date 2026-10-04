@@ -168,7 +168,7 @@
 </div>
 
 <footer>
-  <p><a href="/">PAN21 Counter</a> &nbsp;·&nbsp; <a href="/impressum.html">Impressum</a> &nbsp;·&nbsp; <a href="/datenschutz.html">Datenschutz</a></p>
+  <p><a href="/">PAN21 Counter</a> &nbsp;·&nbsp; <a href="/impressum/">Impressum</a> &nbsp;·&nbsp; <a href="/datenschutz/">Datenschutz</a></p>
 </footer>
 
 <script>
@@ -237,7 +237,7 @@ function renderTable(sites, maxViews) {
     const rankClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
     const rankLabel = i < 3 ? medals[i] : String(site.rank);
     const siteUrl = site.url ? (site.url.startsWith('http') ? site.url : 'https://' + site.url) : '';
-    const statsUrl = '/stats/' + site.site_id;
+    const statsUrl = '/stats/' + site.site_id + '/';
 
     html += `<tr>
       <td><div class="rank-num ${rankClass}">${rankLabel}</div></td>

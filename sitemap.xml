@@ -33,12 +33,12 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.pan21counter.de/impressum.html</loc>
+    <loc>https://www.pan21counter.de/impressum/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://www.pan21counter.de/datenschutz.html</loc>
+    <loc>https://www.pan21counter.de/datenschutz/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>

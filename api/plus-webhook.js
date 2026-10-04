@@ -54,7 +54,7 @@ export default async function handler(req, res) {
               <li>Wöchentlichen E-Mail-Report</li>
               <li>Badge ohne PAN21-Branding</li>
             </ul>
-            <p>Statistiken: <a href="https://pan21counter.de/stats/${site_id}">pan21counter.de/stats/${site_id}</a></p>
+            <p>Statistiken: <a href="https://www.pan21counter.de/stats/${site_id}/">pan21counter.de/stats/${site_id}/</a></p>
           </div>`,
         });
       } catch (e) {

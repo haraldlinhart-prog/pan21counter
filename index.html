@@ -87,7 +87,9 @@
 
     /* HERO */
     .hero {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+      /* Hero-Bild (04.10.26): Grafiken links/rechts, Mitte frei fuer den Text. Volle Breite,
+         vertikal zentriert; Rand oben/unten hat dieselbe Farbe wie die Bildkanten. */
+      background: #071e3e url("/hero.jpg") center / 100% auto no-repeat;
       color: var(--white);
       padding: 5rem 2rem 4rem;
       text-align: center;
@@ -297,7 +299,7 @@
       nav { flex-wrap: wrap; padding: .7rem 1rem; }
       .nav-links { order: 3; width: 100%; margin-left: 0; gap: 1.1rem; overflow-x: auto; white-space: nowrap; padding-top: .55rem; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
       .nav-links::-webkit-scrollbar { display: none; }
-      .hero { padding: 3rem 1.2rem 2.5rem; }
+      .hero { padding: 3rem 1.2rem 2.5rem; background-image: url("/hero-1200.jpg"); }
     }
 
     /* Schwebende Support-/Newsletter-Buttons auf kleinen Bildschirmen: kompakt unten rechts

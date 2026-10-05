@@ -22,13 +22,14 @@
     .lang-switch .active{background:#d4a017;color:#0d1f3c}
     .lang-switch .sep{color:rgba(255,255,255,.35);padding:0}
     main{max-width:720px;margin:3rem auto;padding:0 1.5rem 4rem}
-    h1{font-family:var(--ff-d);font-size:1.8rem;font-weight:700;color:var(--navy);margin-bottom:2rem;padding-bottom:1rem;border-bottom:2px solid var(--gold)}
+    h1{font-family:var(--ff-d);font-size:1.8rem;font-weight:700;color:var(--navy);margin-bottom:2rem;padding-bottom:1rem;border-bottom:2px solid var(--gold);hyphens:auto}
     h2{font-family:var(--ff-d);font-size:1.1rem;font-weight:700;color:var(--navy);margin:1.5rem 0 .5rem}
     p,li{font-size:.92rem;line-height:1.75;color:#333;margin-bottom:.75rem}
     ul{margin-left:1.5rem;margin-bottom:.75rem}
     a{color:var(--gold);text-decoration:none}
     a:hover{text-decoration:underline}
     .highlight{background:#fff;border:1px solid var(--mist);border-left:3px solid var(--gold);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin:1rem 0}
+    .legal-links{margin-top:2.5rem;font-size:.82rem;color:var(--slate)}
   </style>
 </head>
 <body>
@@ -36,54 +37,55 @@
   <a href="/" class="nav-logo">PAN21 <span>Counter</span></a>
   <div class="nav-right">
     <a href="/" class="back-link">← Startseite</a>
-    <div class="lang-switch" role="navigation" aria-label="Sprache"><span class="active" aria-current="page" lang="de">DE</span><span class="sep">|</span><a href="/en/" hreflang="en" lang="en" title="English version">EN</a></div>
+    <div class="lang-switch" role="navigation" aria-label="Sprache"><span class="active" aria-current="page" lang="de">DE</span><span class="sep">|</span><a href="/en/privacy/" hreflang="en" lang="en" title="English version">EN</a></div>
   </div>
 </nav>
 <main>
-  <h1>Datenschutzerklärung</h1>
+  <h1 lang="de">Datenschutz&shy;erklärung</h1>
 
   <div class="highlight">
-    <p><strong>Kurzfassung:</strong> PAN21 Counter verwendet keine Cookies, kein Tracking über Gerätemerkmale (Fingerprinting) und speichert keine personenbezogenen Daten der Websitebesucher. IP-Adressen werden ausschließlich als anonyme Tages-Hashes verarbeitet und nicht gespeichert.</p>
+    <p><strong>Kurzfassung:</strong> PAN21 Counter verwendet keine Cookies und kein Tracking über Gerätemerkmale (Fingerprinting). IP-Adressen werden nur kurzzeitig als gekürzte, täglich wechselnde Hashwerte verarbeitet und nicht gespeichert.</p>
   </div>
 
   <h2>1. Verantwortlicher</h2>
-  <p>PAN21.com International LLC<br>
-  vertreten durch Harald Linhart<br>
-  7533 South Center View CT, STE R, 84084 West Jordan, Utah, USA<br>
-  Telefon: +49 30 5684450-0<br>
-  E-Mail: <a href="mailto:counter@pan21.com">counter@pan21.com</a></p>
+  <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist die PAN21.com International LLC, 7533 South Center View CT, STE R, West Jordan, UT 84084, USA, vertreten durch Harald Linhart. E-Mail: <a href="mailto:dsgvo@pan21.com">dsgvo@pan21.com</a>, Telefon: +49 30 5684450-0.</p>
 
-  <h2>2. Welche Daten werden verarbeitet?</h2>
-  <p>PAN21 Counter ist ein Besucherzähler-Service. Wenn der Zählercode auf einer Fremdwebsite eingebunden ist und ein Besucher diese Seite aufruft, verarbeiten wir:</p>
-  <ul>
-    <li><strong>IP-Adresse (anonymisiert):</strong> Die IP-Adresse wird zusammen mit dem aktuellen Datum und der Website-ID zu einem SHA-256-Hash verarbeitet. Der Hash wird täglich neu berechnet. Die originale IP-Adresse wird nicht gespeichert.</li>
-    <li><strong>Datum des Besuchs:</strong> Nur das Datum (kein Zeitstempel) wird gespeichert.</li>
-    <li><strong>Website-ID:</strong> Die ID der besuchten Website im PAN21-Counter-System.</li>
-    <li><strong>User-Agent (nur zur Bot-Erkennung):</strong> Der Browser-Typ wird ausgelesen, um automatisierte Anfragen (Bots, Crawler) herauszufiltern. Er wird nicht gespeichert.</li>
-  </ul>
+  <h2>2. Hosting</h2>
+  <p>Diese Website wird bei Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA, gehostet. Beim Aufruf der Website verarbeitet Vercel technisch notwendige Daten wie IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Referrer und Browserinformationen (Server-Logfiles), um die Website auszuliefern und vor Missbrauch zu schützen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren und stabilen Betrieb). Mit Vercel besteht ein Vertrag zur Auftragsverarbeitung; Datenübermittlungen in die USA erfolgen auf Grundlage der EU-Standardvertragsklauseln.</p>
 
-  <h2>3. Keine Cookies</h2>
-  <p>PAN21 Counter setzt keinerlei Cookies. Es werden keine Informationen im Browser des Besuchers gespeichert.</p>
+  <h2>3. Cookies</h2>
+  <p>Diese Website setzt keine Cookies zu Analyse- oder Werbezwecken. Auch der Zähler selbst setzt keine Cookies und speichert keine Informationen im Browser.</p>
 
-  <h2>4. Zweck der Verarbeitung</h2>
-  <p>Die Verarbeitung dient ausschließlich der Zählung von Seitenaufrufen (Pageviews) und der Erkennung einzigartiger Besucher (Unique Visitors) für statistische Zwecke im Auftrag des Websitebetreibers. Die Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an anonymer Websitestatistik).</p>
+  <h2>4. Besucherzählung mit PAN21counter</h2>
+  <p>Zur Zählung der Seitenaufrufe nutzen wir den eigenen Besucherzähler PAN21counter (pan21counter.de). Er setzt keine Cookies und erstellt keine Nutzerprofile. Aus der IP-Adresse wird beim Aufruf ein gekürzter, täglich wechselnder Hashwert gebildet, um Mehrfachzählungen am selben Tag zu vermeiden; die IP-Adresse selbst wird nicht gespeichert. Einzelne Aufrufe werden nach drei Tagen gelöscht, danach bleiben nur zusammengefasste Tageszahlen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer einfachen Reichweitenmessung).</p>
+  <p>Ist der Zähler auf einer anderen Website eingebunden, erfolgt die Zählung für deren Betreiber auf dieselbe Weise. Der Browsertyp (User-Agent) wird nur ausgelesen, um automatisierte Aufrufe (Bots, Crawler) herauszufiltern, und nicht gespeichert. Die Zähldaten werden in einer Datenbank bei Supabase in Frankfurt am Main (AWS eu-central-1) gespeichert.</p>
 
-  <h2>5. Speicherdauer</h2>
-  <p>Die anonymisierten Zähldaten (Datum + IP-Hash + Website-ID) werden für maximal 24 Monate gespeichert und danach automatisch gelöscht.</p>
+  <h2>5. Registrierung als Websitebetreiber</h2>
+  <p>Wenn Sie sich als Websitebetreiber bei PAN21 Counter registrieren, speichern wir Ihre E-Mail-Adresse und die URL Ihrer Website zur Verwaltung Ihres Zählers. Diese Daten werden nicht an Dritte weitergegeben und können auf Anfrage jederzeit gelöscht werden. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO.</p>
 
-  <h2>6. Datenweitergabe</h2>
-  <p>Eine Weitergabe der Daten an Dritte findet nicht statt. Die Daten werden auf Servern innerhalb der EU (Supabase Frankfurt, AWS eu-central-1) gespeichert.</p>
+  <h2>6. PAN21 Counter Plus und Zahlungen</h2>
+  <p>Zahlungen werden über Stripe (Stripe Payments Europe Ltd., 1 Grand Canal Street Lower, Dublin 2, Irland) abgewickelt. Dabei werden die für die Zahlung erforderlichen Daten an Stripe übermittelt. Wählen Sie die Zahlung mit EUROPAN-Guthaben, werden Ihre E-Mail-Adresse und Ihre PIN zur Prüfung und Abbuchung des Guthabens an das EUROPAN-Guthabensystem (noble-limited.com) übermittelt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO.</p>
 
-  <h2>7. Registrierung als Websitebetreiber</h2>
-  <p>Wenn Sie sich als Websitebetreiber bei PAN21 Counter registrieren, speichern wir Ihre E-Mail-Adresse und die URL Ihrer Website zur Verwaltung Ihres Zähler-Accounts. Diese Daten werden nicht an Dritte weitergegeben und können auf Anfrage jederzeit gelöscht werden.</p>
+  <h2>7. E-Mail</h2>
+  <p>Wenn Sie uns per E-Mail schreiben, verarbeiten wir Ihre Angaben (z. B. Name, E-Mail-Adresse, Nachricht), um Ihre Anfrage zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit Ihre Anfrage auf einen Vertrag zielt, sonst Art. 6 Abs. 1 lit. f DSGVO. Die Daten werden gelöscht, sobald sie nicht mehr benötigt werden und keine gesetzlichen Aufbewahrungspflichten bestehen. Der E-Mail-Versand (z. B. Bestätigungen) erfolgt über Resend (Resend Inc., USA) auf Grundlage eines Auftragsverarbeitungsvertrags und der EU-Standardvertragsklauseln.</p>
 
-  <h2>8. Ihre Rechte</h2>
-  <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten sowie das Recht auf Datenübertragbarkeit. Wenden Sie sich dazu an: <a href="mailto:counter@pan21.com">counter@pan21.com</a></p>
+  <h2>8. Newsletter</h2>
+  <p>Für den Newsletter nutzen wir beehiiv (Beehiiv Inc., USA). Wenn Sie sich anmelden, werden Ihre E-Mail-Adresse und Anmeldedaten bei beehiiv gespeichert. Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), die Sie jederzeit über den Abmeldelink widerrufen können.</p>
 
-  <h2>9. Beschwerderecht</h2>
-  <p>Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten zu beschweren.</p>
+  <h2>9. KI-Chat und Sprachanruf</h2>
+  <p>Der KI-Chat bzw. Sprachanruf im Support-Fenster wird erst geladen, wenn Sie ihn aktiv starten. Dann werden Ihre Eingaben bzw. Ihre Stimme an den Anbieter übermittelt, um das Gespräch zu führen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b bzw. f DSGVO.</p>
 
-  <p style="margin-top:2rem;font-size:.82rem;color:var(--slate)">Stand: Juni 2026</p>
+  <h2>10. Schriftarten</h2>
+  <p>Diese Website verwendet die Systemschriften Ihres Geräts. Es findet keine Verbindung zu Servern von Google oder anderen Schriftanbietern statt.</p>
+
+  <h2>11. Eingebettete Inhalte</h2>
+  <p>Diese Website bindet Inhalte anderer Server ein: Produktbilder von shop.pan21.com, das Firmenkauf-Widget von firmenkauf.org, Vorschaubilder der verlinkten Nachrichtenquellen (Handelsblatt, WirtschaftsWoche) sowie Verzeichnis-Banner von ffa-links.de, swiss-quality.de und german-quality.net. Beim Laden dieser Inhalte wird Ihre IP-Adresse technisch bedingt an den jeweiligen Server übertragen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.</p>
+
+  <h2>12. Ihre Rechte</h2>
+  <p>Sie haben das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch gegen Verarbeitungen auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (Art. 21). Erteilte Einwilligungen können Sie jederzeit mit Wirkung für die Zukunft widerrufen. Außerdem haben Sie das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren. Wenden Sie sich für Ihre Anliegen an <a href="mailto:dsgvo@pan21.com">dsgvo@pan21.com</a>.</p>
+
+  <p style="margin-top:2rem;font-size:.82rem;color:var(--slate)">Stand: Oktober 2026</p>
+  <p class="legal-links"><a href="/">PAN21 Counter</a> &nbsp;·&nbsp; <a href="/impressum/">Impressum</a></p>
 </main>
 </body>
 </html>

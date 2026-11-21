@@ -1,4 +1,16 @@
 {
+  "redirects": [
+    {
+      "source": "/blog/kostenlose-website-analyse-praktische-werkzeuge-fur-datenbasierte-ents",
+      "destination": "https://www.webmaster.plus/blog/website-analyse-tools-kostenlos-welche-werkzeuge-ihre-online-prasenz-w",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kostenlose-website-analyse-praktische-werkzeuge-fur-datenbasierte-ents/",
+      "destination": "https://www.webmaster.plus/blog/website-analyse-tools-kostenlos-welche-werkzeuge-ihre-online-prasenz-w",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/c.js",

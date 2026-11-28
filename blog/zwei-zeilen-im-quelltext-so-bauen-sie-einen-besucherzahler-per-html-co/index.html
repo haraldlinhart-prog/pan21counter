@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zwei Zeilen im Quelltext: So bauen Sie einen Besucherzähler per HTML-Code ein</title>
+<meta name="description" content="Besucherzähler HTML Code verständlich erklärt: Wo der Snippet-Code hingehört, wie Sie ihn testen und worauf Sie bei Datenschutz und Performance achten sollten.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.pan21counter.de/blog/zwei-zeilen-im-quelltext-so-bauen-sie-einen-besucherzahler-per-html-co/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zwei Zeilen im Quelltext: So bauen Sie einen Besucherzähler per HTML-Code ein">
+<meta property="og:description" content="Besucherzähler HTML Code verständlich erklärt: Wo der Snippet-Code hingehört, wie Sie ihn testen und worauf Sie bei Datenschutz und Performance achten sollten.">
+<meta property="og:url" content="https://www.pan21counter.de/blog/zwei-zeilen-im-quelltext-so-bauen-sie-einen-besucherzahler-per-html-co/">
+<meta property="og:site_name" content="pan21counter.de">
+<meta property="og:image" content="https://video.pan21.com/blog-images/img_6b0a6e9f45ede0.80219495.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://video.pan21.com/blog-images/img_6b0a6e9f45ede0.80219495.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Zwei Zeilen im Quelltext: So bauen Sie einen Besucherzähler per HTML-Code ein","description":"Besucherzähler HTML Code verständlich erklärt: Wo der Snippet-Code hingehört, wie Sie ihn testen und worauf Sie bei Datenschutz und Performance achten sollten.","inLanguage":"de","datePublished":"2026-11-28T06:03:12.796Z","dateModified":"2026-11-28T06:03:12.796Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.pan21counter.de/blog/zwei-zeilen-im-quelltext-so-bauen-sie-einen-besucherzahler-per-html-co/"},"url":"https://www.pan21counter.de/blog/zwei-zeilen-im-quelltext-so-bauen-sie-einen-besucherzahler-per-html-co/","image":"https://video.pan21.com/blog-images/img_6b0a6e9f45ede0.80219495.jpg","author":{"@type":"Organization","name":"pan21counter.de","url":"https://www.pan21counter.de/"},"publisher":{"@type":"Organization","name":"pan21counter.de","url":"https://www.pan21counter.de/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","name":"Zwei Zeilen im Quelltext: So bauen Sie einen Besucherzähler per HTML-Code ein","itemListElement":[{"@type":"ListItem","position":1,"name":"pan21counter.de","item":"https://www.pan21counter.de/"},{"@type":"ListItem","position":2,"name":"News","item":"https://www.pan21counter.de/blog/"},{"@type":"ListItem","position":3,"name":"Zwei Zeilen im Quelltext: So bauen Sie einen Besucherzähler per HTML-Code ein","item":"https://www.pan21counter.de/blog/zwei-zeilen-im-quelltext-so-bauen-sie-einen-besucherzahler-per-html-co/"}]}</script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; max-width: 720px; margin: 0 auto; padding: 40px 20px; line-height: 1.7; color: #1a1a1a; }
+  h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.4rem; margin-top: 2rem; }
+  h3 { font-size: 1.15rem; margin-top: 1.5rem; }
+  p { margin: 1rem 0; }
+  a.back { display: inline-block; margin-bottom: 24px; color: #666; text-decoration: none; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<a class="back" href="https://www.pan21counter.de/">&larr; Zurück zu pan21counter.de</a>
+<figure style="margin:0 0 1.5rem;"><img src="https://video.pan21.com/blog-images/img_6b0a6e9f45ede0.80219495.jpg" alt="Zwei Zeilen im Quelltext: So bauen Sie einen Besucherzähler per HTML-Code ein" style="width:100%;height:auto;border-radius:8px;" loading="lazy"><figcaption style="font-size:0.78rem;color:#8a9a94;margin-top:0.4rem;">Bild: Pixabay</figcaption></figure>
+<p>Wer wissen möchte, ob seine Website gelesen wird, braucht keine komplexe Analyse-Suite. Oft genügt ein kleiner Besucherzähler, der sich per HTML-Code einbinden lässt. Dieser Artikel zeigt, wie das Prinzip funktioniert, wo der Code im Quelltext hingehört und welche Fehler beim Einbau häufig passieren. Das Angebot von PAN21 Counter ist genau darauf ausgelegt: Es besteht aus nur zwei Zeilen Code.</p>
+
+<h2>Was ein Besucherzähler per HTML-Code eigentlich ist</h2>
+<p>Ein Besucherzähler besteht aus zwei Teilen: einem Stück Code auf Ihrer Seite und einem Dienst, der die Aufrufe entgegennimmt und zählt. Der Code auf Ihrer Seite ist meist ein kleines Snippet. Sobald ein Browser die Seite lädt, fordert er vom Zählerdienst eine Ressource an, zum Beispiel ein Skript oder ein Bild. Diese Anfrage wird als Seitenaufruf gewertet.</p>
+<p>Der Vorteil: Sie müssen weder Datenbank noch Serverprogrammierung pflegen. Ihre Seite kann statisch sein, etwa eine handgeschriebene HTML-Datei, und trotzdem Aufrufe erfassen.</p>
+
+<h2>Die zwei Zeilen: Aufbau eines typischen Snippets</h2>
+<p>Ein solches Snippet folgt meist einem einfachen Muster. Eine Zeile bindet den Zähler ein (häufig ein Script-Element mit externer Quelle), eine zweite Zeile legt fest, wo die Anzeige erscheinen soll, oder liefert eine Kennung für Ihre Seite. Den genauen Code erhalten Sie beim jeweiligen Anbieter; kopieren Sie ihn unverändert und passen Sie nur die vorgesehenen Angaben an, etwa Ihre Zähler-Kennung.</p>
+<p>Wichtig ist: Verwenden Sie ausschließlich den Code, der Ihnen für Ihren Zähler genannt wird. Selbst geratene Adressen oder Attribute führen dazu, dass nichts gezählt wird.</p>
+
+<h2>Schritt für Schritt: Einbau in Ihre Seite</h2>
+<h3>1. Die richtige Stelle wählen</h3>
+<p>Die Anzeige gehört dorthin, wo Besucher sie sehen sollen, häufig in den Footer. Ein Skript-Element kann am Ende des <code>body</code> stehen, damit es das Laden des sichtbaren Inhalts nicht ausbremst. Möchten Sie den Zähler auf jeder Unterseite erfassen, muss der Code auf jeder Seite vorhanden sein.</p>
+<h3>2. Gemeinsame Vorlagen nutzen</h3>
+<p>Bei mehreren Seiten lohnt es sich, den Code nur einmal in eine gemeinsame Vorlage zu setzen: ein Footer-Template, ein Include oder bei einem CMS das Theme. So vergessen Sie keine Unterseite, und spätere Änderungen sind schnell erledigt.</p>
+<h3>3. Speichern, hochladen, Cache leeren</h3>
+<p>Nach dem Hochladen sehen Sie manchmal noch die alte Version, weil Browser oder ein Caching-Plugin sie zwischenspeichern. Leeren Sie den Cache und laden Sie die Seite neu.</p>
+
+<h2>Einbau testen: So prüfen Sie, ob es funktioniert</h2>
+<ul>
+<li>Seite im Browser öffnen und prüfen, ob die Anzeige erscheint.</li>
+<li>Mit „Seitenquelltext anzeigen“ kontrollieren, ob beide Zeilen vollständig und ohne Tippfehler im Quelltext stehen.</li>
+<li>In den Entwicklertools (Reiter Netzwerk) schauen, ob die Anfrage an den Zählerdienst gesendet wird und keine Fehlermeldung zurückkommt.</li>
+<li>Bedenken Sie, dass Werbeblocker einzelne Zähleranfragen unterdrücken können. Zahlen sind daher eine Orientierung, kein exaktes Abbild.</li>
+</ul>
+
+<h2>Typische Fehler beim Besucherzähler HTML Code</h2>
+<p>Häufig liegt der Code im <code>head</code> eines Dokuments, das später durch ein anderes Template ersetzt wird. Ebenfalls verbreitet: Anführungszeichen, die beim Kopieren aus einem Textprogramm in typografische Zeichen umgewandelt wurden. Browser erkennen diese nicht als gültige Syntax. Fügen Sie den Code daher immer in einen reinen Texteditor ein.</p>
+<p>Auch ein doppelter Einbau auf derselben Seite kann Zahlen verfälschen. Prüfen Sie, ob Theme und Zusatz-Plugin den Code nicht jeweils einmal einfügen. Einige Zähler schützen zusätzlich vor wiederholtem Neuladen in kurzer Zeit; wie das bei Ihrem Zähler geregelt ist, steht in der Anbieterbeschreibung.</p>
+
+<h2>HTML oder JavaScript? Eine Einordnung</h2>
+<p>Streng genommen ist HTML nur der Rahmen, in dem das Snippet steht. Die eigentliche Logik läuft häufig in JavaScript. Wie das im Detail funktioniert, erklärt der Beitrag <a href="https://www.pan21counter.de/blog/besucherzahler-javascript-wie-sie-mit-modernem-js-code-website-traffic/">Besucherzähler mit JavaScript</a>. Für den Einbau selbst müssen Sie aber keinen eigenen JavaScript-Code schreiben, es genügt, das Snippet korrekt zu platzieren. Eine weitere Vertiefung zur Integration finden Sie in unserem Artikel zur <a href="https://www.pan21counter.de/blog/besucherzahler-html-code-implementierung-und-integration-in-ihre-websi/">Implementierung und Integration in Ihre Website</a>.</p>
+
+<h2>Datenschutz und Transparenz nicht vergessen</h2>
+<p>Sobald ein externer Dienst eingebunden wird, fragt der Browser des Besuchers bei diesem Dienst an. Dabei werden technische Daten wie die IP-Adresse übertragen. Klären Sie deshalb, welche Daten der Anbieter verarbeitet, ob Cookies gesetzt werden und ob Sie Ihre Datenschutzerklärung anpassen müssen. Ob zusätzlich eine Einwilligung nötig ist, hängt von der konkreten Funktionsweise ab; im Zweifel holen Sie fachkundigen Rat ein. Diese Pflichten gelten auch für kleine private Seiten, sofern sie nicht rein persönlich genutzt werden.</p>
+
+<h2>Wann sich ein einfacher Zähler lohnt</h2>
+<p>Ein schlanker Zähler passt für Portfolios, Vereinsseiten, kleine Shops oder Projektseiten, bei denen Sie vor allem die Entwicklung der Aufrufe sehen wollen. Für detaillierte Auswertungen von Nutzerpfaden oder Kampagnen ist er nicht gedacht. Wer zunächst nur ausprobieren will, findet Hinweise im Beitrag <a href="https://www.pan21counter.de/blog/besucherzahler-kostenlos-so-tracken-sie-website-besucher-ohne-kosten/">Besucherzähler kostenlos nutzen</a>. Konditionen zum Angebot von PAN21 Counter entnehmen Sie bitte der jeweiligen Angebotsseite.</p>
+
+<h2>Fazit</h2>
+<p>Ein Besucherzähler per HTML-Code ist in wenigen Minuten eingebaut: Snippet kopieren, an der passenden Stelle einfügen, hochladen und im Quelltext sowie in den Entwicklertools prüfen. Wer auf saubere Platzierung, einen einmaligen Einbau und eine aktualisierte Datenschutzerklärung achtet, hat mit zwei Zeilen Code eine solide Grundlage, um die Resonanz auf die eigene Website im Blick zu behalten.</p>
+<p style="margin-top:3rem;padding-top:1.5rem;border-top:1px solid #eee"><a href="https://www.pan21counter.de/blog/">Weitere Artikel &rarr;</a></p>
+<footer style="margin-top:2rem;font-size:0.85rem;color:#666"><a href="https://www.pan21counter.de/impressum/">Impressum</a> &middot; <a href="https://www.pan21counter.de/datenschutz/">Datenschutz</a></footer>
+</body>
+</html>
